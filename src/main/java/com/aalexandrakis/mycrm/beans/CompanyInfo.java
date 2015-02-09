@@ -10,7 +10,7 @@ public class CompanyInfo implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private Integer companyId;
 	@NotBlank
 	private String name;
 	@NotBlank
@@ -94,6 +94,15 @@ public class CompanyInfo implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
 	}
 
 	public static long getSerialversionuid() {

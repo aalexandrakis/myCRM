@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,13 +20,13 @@ public class CompanyInfoController{
 	private ApplicationContext appContext;
 	
 	
-	@RequestMapping("/companyInfo")
-	protected ModelAndView companyInfo(CompanyInfo companyInfo) {
+	@RequestMapping("/companyInfo/{companyId}")
+	protected ModelAndView companyInfo(@Valid CompanyInfo companyInfo, @PathVariable Integer companyId) {
 		
 		ModelAndView model = new ModelAndView("companyInfo");
-		model.addObject("myCompanyInfoActive", "active");
+		model.addObject("companyInfoActive", "active");
 		try {
-			companyInfo = CompanyInfoDao.getCompanyInfo();
+			companyInfo = CompanyInfoDao.getCompanyInfo(companyId);
 			model.addObject("companyInfo", companyInfo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -34,10 +35,20 @@ public class CompanyInfoController{
 		return model;
 	}
 
+	@RequestMapping("/companyInfo")
+	protected ModelAndView companyInfo(CompanyInfo companyInfo) {
+		
+		ModelAndView model = new ModelAndView("companyInfo");
+		model.addObject("companyInfoActive", "active");
+		return model;
+	}
+
+	
+	
 	@RequestMapping(value = "/companyInfo", method = RequestMethod.POST)
 	protected ModelAndView companyInfo(@Valid CompanyInfo companyInfo, BindingResult result) {
 		ModelAndView model = new ModelAndView("companyInfo");
-		model.addObject("myCompanyInfoActive", "active");
+		model.addObject("companyInfoActive", "active");
 		if (result.hasFieldErrors("name")){
 			model.addObject("nameError", "has-error");
 		}
@@ -66,7 +77,11 @@ public class CompanyInfoController{
 			return model;
 		}
 		try {
-			CompanyInfoDao.saveOrUpdateCompanyInfo(companyInfo);
+			if (companyInfo.getCompanyId() == null){
+				CompanyInfoDao.saveCompanyInfo(companyInfo);
+			} else {
+				CompanyInfoDao.updateCompanyInfo(companyInfo);
+			}
 			model.addObject("successMessage", "Company info added/updated successfully");
 		} catch (Exception e) {
 			result.reject("saveError", e.getMessage());

@@ -47,7 +47,7 @@
                     		 <h2>Menu</h2>
                     	</li>
                         <li>
-                            <a class="${myCompanyInfoActive }" href="${pageContext.request.contextPath}/companyInfo">My Company Info</a>
+                            <a class="${companyInfoActive }" href="${pageContext.request.contextPath}/companiesInfo">Companies</a>
                         </li>
                         <li>
                             <a class="${customerActive }" href="${pageContext.request.contextPath}/customers">Customers</a>
@@ -55,6 +55,10 @@
                         <li>
                             <a class="${supplierActive }" href="${pageContext.request.contextPath}/suppliers">Suppliers</a>
                         </li>
+                        <li>
+                            <a class="${invoiceActive }" href="${pageContext.request.contextPath}/invoices">Invoices</a>
+                        </li>
+                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

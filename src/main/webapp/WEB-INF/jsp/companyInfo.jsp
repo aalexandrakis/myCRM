@@ -33,6 +33,12 @@
 		                        					${successMessage }
 		                        				</div>		
 		                        			</c:if>
+		                        			<c:if test="${companyId != null}">
+			                        			<div class="form-group">
+			                        			   <label>Company Id:</label>
+			                        			   <form:input type="text" path="companyId" style="border:none" readonly="true"/>
+				                        	    </div>   
+					                    	</c:if>
 		                        			<div class="form-group ${nameError}">
 		                        			   <form:input type="text" path="name" class="form-control" placeholder="Name"/>
 		                        			   <form:errors path="name" element="label" cssClass="control-label"/>
