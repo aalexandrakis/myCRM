@@ -17,10 +17,13 @@ import com.aalexandrakis.mycrm.dao.CompanyInfoDao;
 public class CompanyInfoController{
 	@Autowired
 	private ApplicationContext appContext;
-
+	
+	
 	@RequestMapping("/companyInfo")
 	protected ModelAndView companyInfo(CompanyInfo companyInfo) {
+		
 		ModelAndView model = new ModelAndView("companyInfo");
+		model.addObject("myCompanyInfoActive", "active");
 		try {
 			companyInfo = CompanyInfoDao.getCompanyInfo();
 			model.addObject("companyInfo", companyInfo);
@@ -34,6 +37,7 @@ public class CompanyInfoController{
 	@RequestMapping(value = "/companyInfo", method = RequestMethod.POST)
 	protected ModelAndView companyInfo(@Valid CompanyInfo companyInfo, BindingResult result) {
 		ModelAndView model = new ModelAndView("companyInfo");
+		model.addObject("myCompanyInfoActive", "active");
 		if (result.hasFieldErrors("name")){
 			model.addObject("nameError", "has-error");
 		}

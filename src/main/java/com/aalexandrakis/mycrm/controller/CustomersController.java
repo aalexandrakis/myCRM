@@ -18,8 +18,8 @@ public class CustomersController{
 
 	@RequestMapping("/customers")
 	protected ModelAndView customers(Customer customer) {
-		// TODO Auto-generated method stub
 		ModelAndView model = new ModelAndView("customers");
+		model.addObject("customerActive", "active");
 		try {
 		List<Customer> customers = CustomerDao.getCustomers(null);
 		model.addObject("customers", customers);
@@ -33,7 +33,6 @@ public class CustomersController{
 
 	@RequestMapping(value = "/customers", method = RequestMethod.POST)
 	protected ModelAndView customers(Customer customer, BindingResult result) {
-		// TODO Auto-generated method stub
 		Map<String, String> parms = new HashMap<String, String>();
 		if (customer.getCustomerName() != null && !customer.getCustomerName().isEmpty()){
 			parms.put("customerName", customer.getCustomerName());
@@ -42,6 +41,8 @@ public class CustomersController{
 			parms.put("customerAfm", customer.getCustomerAfm());
 		}
 		ModelAndView model = new ModelAndView("customers");
+		model.addObject("customerActive", "active");
+		
 		try {
 		List<Customer> customers = CustomerDao.getCustomers(parms);
 		model.addObject("customers", customers);

@@ -15,11 +15,12 @@ import com.aalexandrakis.mycrm.dao.SupplierDao;
 
 @Controller
 public class SuppliersController{
-
+	
 	@RequestMapping("/suppliers")
 	protected ModelAndView suppliers(Supplier supplier) {
-		// TODO Auto-generated method stub
 		ModelAndView model = new ModelAndView("suppliers");
+		model.addObject("supplierActive", "active");
+
 		try {
 		List<Supplier> suppliers = SupplierDao.getSuppliers(null);
 		model.addObject("suppliers", suppliers);
@@ -42,6 +43,8 @@ public class SuppliersController{
 			parms.put("supplierAfm", supplier.getSupplierAfm());
 		}
 		ModelAndView model = new ModelAndView("suppliers");
+		model.addObject("supplierActive", "active");
+
 		try {
 		List<Supplier> suppliers = SupplierDao.getSuppliers(parms);
 		model.addObject("suppliers", suppliers);

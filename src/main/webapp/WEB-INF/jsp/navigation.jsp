@@ -4,7 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page pageEncoding="UTF-8" %>
        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px;" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -44,16 +44,16 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                     	<li>
-                    		 <h2>Menu</h2> 
+                    		 <h2>Menu</h2>
                     	</li>
                         <li>
-                            <a class="${companyInfoActive }" href="${pageContext.request.contextPath}/companyInfo">My Company Info</a>
+                            <a class="${myCompanyInfoActive }" href="${pageContext.request.contextPath}/companyInfo">My Company Info</a>
                         </li>
                         <li>
-                            <a class=${customersActive } href="${pageContext.request.contextPath}/customers">Customers</a>
+                            <a class="${customerActive }" href="${pageContext.request.contextPath}/customers">Customers</a>
                         </li>
                         <li>
-                            <a class=${suppliersActive } href="${pageContext.request.contextPath}/suppliers">Suppliers</a>
+                            <a class="${supplierActive }" href="${pageContext.request.contextPath}/suppliers">Suppliers</a>
                         </li>
                     </ul>
                 </div>

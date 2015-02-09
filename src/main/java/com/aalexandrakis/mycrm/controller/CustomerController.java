@@ -18,16 +18,18 @@ import com.aalexandrakis.mycrm.dao.CustomerDao;
 public class CustomerController{
 	@Autowired
 	private ApplicationContext appContext;
-
+	
 	@RequestMapping("/customer")
 	protected ModelAndView customer(Customer customer) {
 		ModelAndView model = new ModelAndView("customer");
+		model.addObject("customerActive", "active");
 		return model;
 	}
 
 	@RequestMapping("/customer/{customerId}")
 	protected ModelAndView customer(Customer customer , @PathVariable Integer customerId, BindingResult result) {
 		ModelAndView model = new ModelAndView("customer");
+		model.addObject("customerActive", "active");
 		try {
 			customer = CustomerDao.getCustomer(customerId);
 			model.addObject("customer", customer);
@@ -42,6 +44,7 @@ public class CustomerController{
 	protected ModelAndView customer(@Valid Customer customer, BindingResult result) {
 		
 		ModelAndView model = new ModelAndView("customer");
+		model.addObject("customerActive", "active");
 		if (result.hasFieldErrors("customerName")){
 			model.addObject("customerNameError", "has-error");
 		}

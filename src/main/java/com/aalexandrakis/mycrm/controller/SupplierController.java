@@ -18,16 +18,20 @@ import com.aalexandrakis.mycrm.dao.SupplierDao;
 public class SupplierController{
 	@Autowired
 	private ApplicationContext appContext;
-
+	
+	
 	@RequestMapping("/supplier")
 	protected ModelAndView supplier(Supplier supplier) {
 		ModelAndView model = new ModelAndView("supplier");
+		model.addObject("supplierActive", "active");
 		return model;
 	}
 
 	@RequestMapping("/supplier/{supplierId}")
 	protected ModelAndView supplier(Supplier supplier , @PathVariable Integer supplierId, BindingResult result) {
 		ModelAndView model = new ModelAndView("supplier");
+		model.addObject("supplierActive", "active");
+
 		try {
 			supplier = SupplierDao.getSupplier(supplierId);
 			model.addObject("supplier", supplier);
@@ -42,6 +46,8 @@ public class SupplierController{
 	protected ModelAndView supplier(@Valid Supplier supplier, BindingResult result) {
 		
 		ModelAndView model = new ModelAndView("supplier");
+		model.addObject("supplierActive", "active");
+
 		if (result.hasFieldErrors("supplierName")){
 			model.addObject("supplierNameError", "has-error");
 		}

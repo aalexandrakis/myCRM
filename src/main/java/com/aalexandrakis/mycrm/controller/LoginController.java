@@ -25,7 +25,7 @@ import com.aalexandrakis.mycrm.dao.UserDao;
 public class LoginController{
 	@Autowired
 	private AuthenticationSuccessHandler successHandler;
-
+	
 	@RequestMapping("/login")
 	public String login(User user){
 		return "login";
