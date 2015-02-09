@@ -47,10 +47,13 @@
                     		 <h2>Menu</h2> 
                     	</li>
                         <li>
-                            <a class="active" href="${pageContext.request.contextPath}/companyInfo">My Company Info</a>
+                            <a class="${companyInfoActive }" href="${pageContext.request.contextPath}/companyInfo">My Company Info</a>
                         </li>
                         <li>
-                            <a class="active" href="${pageContext.request.contextPath}/customers">Customers</a>
+                            <a class=${customersActive } href="${pageContext.request.contextPath}/customers">Customers</a>
+                        </li>
+                        <li>
+                            <a class=${suppliersActive } href="${pageContext.request.contextPath}/suppliers">Suppliers</a>
                         </li>
                     </ul>
                 </div>

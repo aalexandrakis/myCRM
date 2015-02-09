@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.aalexandrakis.mycrm.beans.User;
-import com.aalexandrakis.mycrm.commons.Constants;
 import com.aalexandrakis.mycrm.commons.Methods;
 
 public class UserDao {
