@@ -28,95 +28,68 @@
 		                	<div class="row">
 		                        <form:form modelAttribute="invoice" action="${pageContext.request.contextPath}/companiesInfo" method="POST">
 		                        	<div class="col-lg-8">
-		                        		<b>Company</b>
+		                        		<a href="${pageContext.request.contextPath}/selectCompany" class="btn btn-primary">Select Company</a>
 	                        		</div>
 		                        	<form:errors path="*" element="div" cssClass="alert alert-danger"/>
 	                        	    <div class="col-lg-8">
-				                        <div class="input-group custom-search-form">
-				                           <form:input type="text" path="companyInfo.name" class="form-control" placeholder="Name"/>
-				                           <span class="input-group-btn">
-					                           <button class="btn btn-default" type="submit">
-					                               <i class="fa fa-search"></i>
-					                           </button>
-				                       	   </span>
-				                    	</div>
+			                           <form:input type="text" path="companyInfo.name" class="form-control" placeholder="Name" readonly="true"/>
 			                    	</div>
 			                    	
 			                    	<div class="col-lg-3">
-					                        <div class="input-group custom-search-form">
-					                           <form:input type="text" path="companyInfo.afm" class="form-control" placeholder="VAT" max="9"/>
-					                           <span class="input-group-btn">
-						                           <button class="btn btn-default" type="submit">
-						                               <i class="fa fa-search"></i>
-						                           </button>
-					                       	   </span>
-					                    	</div>
+			                           <form:input type="text" path="companyInfo.afm" class="form-control" placeholder="VAT" max="9" readonly="true"/>
 			                    	</div>
 			                    	
 			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="companyInfo.busDesc" class="form-control" placeholder="Profession"/>
+			                           <form:input type="text" path="companyInfo.busDesc" class="form-control" placeholder="Profession" readonly="true"/>
 			                    	</div>
 			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="companyInfo.address" class="form-control" placeholder="Address"/>
+			                           <form:input type="text" path="companyInfo.address" class="form-control" placeholder="Address" readonly="true"/>
 			                    	</div>
      					            <div class="col-lg-3">
-				                       <form:input type="text" path="companyInfo.doy" class="form-control" placeholder="DOY"/>
+				                       <form:input type="text" path="companyInfo.doy" class="form-control" placeholder="DOY" readonly="true"/>
 				                   	</div>
 			                    	
 		                    		<div class="col-lg-3">
-			                           <form:input type="text" path="companyInfo.workPhone" class="form-control" placeholder="Work phone"/>
+			                           <form:input type="text" path="companyInfo.workPhone" class="form-control" placeholder="Work phone" readonly="true"/>
 			                    	</div>
 			                    	
 			                    	<div class="col-lg-3">
-			                           <form:input type="text" path="companyInfo.mobilePhone" class="form-control" placeholder="Mobile phone"/>
+			                           <form:input type="text" path="companyInfo.mobilePhone" class="form-control" placeholder="Mobile phone" readonly="true"/>
 			                    	</div>
 			                    	
 			                    	<div class="col-lg-3">
-			                           <form:input type="text" path="companyInfo.email" class="form-control" placeholder="Email"/>
+			                           <form:input type="text" path="companyInfo.email" class="form-control" placeholder="Email" readonly="true"/>
 			                    	</div>
 			                    	
 			                    	<div class="col-lg-12">
 			                    		<br>
-		                        		<b>Customer</b>
+		                        		<a href="${pageContext.request.contextPath}/selectCustomer" class="btn btn-primary">Select Customer</a>
 	                        		</div>
 		                        	
 		                        	<div class="col-lg-8">
-				                        <div class="input-group custom-search-form">
-				                           <form:input type="text" path="customer.customerName" class="form-control" placeholder="Name"/>
-				                           <span class="input-group-btn">
-					                           <button class="btn btn-default" type="submit">
-					                               <i class="fa fa-search"></i>
-					                           </button>
-				                       	   </span>
-				                    	</div>
+			                           <form:input type="text" path="customer.customerName" class="form-control" placeholder="Name" readonly="true"/>
 			                    	</div>
 			                    	
 			                    	<div class="col-lg-3">
-				                        <div class="input-group custom-search-form">
-				                           <form:input type="text" path="customer.customerAfm" class="form-control" placeholder="VAT" max="9"/>
-				                           <span class="input-group-btn">
-					                           <button class="btn btn-default" type="submit">
-					                               <i class="fa fa-search"></i>
-					                           </button>
-				                       	   </span>
-				                    	</div>
+			                           <form:input type="text" path="customer.customerAfm" class="form-control" placeholder="VAT" max="9" readonly="true"/>
 			                    	</div>
 			                    	
 			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="customer.customerBusDesc" class="form-control" placeholder="Profession"/>
+			                           <form:input type="text" path="customer.customerBusDesc" class="form-control" placeholder="Profession" readonly="true"/>
 			                    	</div>
 			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="customer.customerAddress" class="form-control" placeholder="Address"/>
+			                           <form:input type="text" path="customer.customerAddress" class="form-control" placeholder="Address" readonly="true"/>
 			                    	</div>
      					            <div class="col-lg-3">
-				                       <form:input type="text" path="customer.customerDoy" class="form-control" placeholder="DOY"/>
+				                       <form:input type="text" path="customer.customerDoy" class="form-control" placeholder="DOY" readonly="true"/>
 				                   	</div>
 			                    	
 		                    		<div class="col-lg-3">
-			                           <form:input type="text" path="customer.customerPhone" class="form-control" placeholder="Phone"/>
+			                           <form:input type="text" path="customer.customerPhone" class="form-control" placeholder="Phone" readonly="true"/>
 			                    	</div>
 
 									<div class="col-lg-12">
+										<br>
 										<b>Taxes</b>
 									</div>	
 
@@ -129,6 +102,7 @@
 		                    	    </div>
 			                    	
 			                    	<div class="col-lg-12">
+			                    		<br>
 				                    	<div class="table-responsive">
 					                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
 					                            <thead>
