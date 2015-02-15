@@ -1,41 +1,51 @@
 package com.aalexandrakis.mycrm.beans;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.NumberFormat;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-public class Invoice {
+import com.aalexandrakis.mycrm.validators.Percent;
+
+public class Invoice implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Integer invoiceId;
-	
+
+	@NotNull @Min(1)
 	private int companyId;
 	
 	private CompanyInfo companyInfo;
 	
+	@NotNull @Min(1)
 	private int customerId;
 	
 	private Customer customer;
-	
-	@NotBlank @NumberFormat(pattern = "###,###,##0.00")
+	 
 	private BigDecimal amount;
-
-	@NotBlank @NumberFormat(pattern = "##0.00")
-	private BigDecimal fpa;
-
-	@NotBlank @NumberFormat(pattern = "###,###,##0.00")
-	private BigDecimal taxis;
-
-	@NotBlank @NumberFormat(pattern = "###,###,##0.00")
-	private BigDecimal gross;
-
-	private List<InvoiceLine> invoiceLines;
 	
-	@NotBlank @NumberFormat(pattern = "##0.00")
+	@Percent
+	private BigDecimal fpa;
+	
+	private BigDecimal taxis;
+	
+	private BigDecimal gross;
+	
+	@Percent
 	private BigDecimal withHolding;
 	
+	private List<InvoiceLine> invoiceLines;
+	
+	
 	public Invoice(){
-		this.withHolding = BigDecimal.ZERO;
+		this.withHolding = new BigDecimal("20.00");
+		this.fpa = new BigDecimal("23.00");
 	}
 
 	public Integer getInvoiceId() {
@@ -126,6 +136,24 @@ public class Invoice {
 		this.withHolding = withHolding;
 	}
 
+	public void addNewLine(){
+		if (this.invoiceLines == null) {
+			this.invoiceLines = new ArrayList<InvoiceLine>();
+		}
+		this.invoiceLines.add(new InvoiceLine(this.invoiceLines.size() + 1));
+	}
 	
+	public void removeLine(int lineId){  
+		for (InvoiceLine line : this.invoiceLines){
+			if (line.getLineId() == lineId){
+				this.invoiceLines.remove(line);
+			}
+		}
+		int i=0;
+		for (InvoiceLine line : this.invoiceLines){
+			i++;
+			line.setLineId(i);
+		}
+	}
 	
 }

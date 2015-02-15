@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<commons:header title="Companies - myCRM"/>
+<commons:header title="Invoice - myCRM"/>
 <body>
 	<div id="wrapper">
 		<jsp:include page="navigation.jsp"/>
@@ -20,87 +20,113 @@
                 <div class="panel panel-default">
 		                <div class="panel-heading">
 		                    <div class="form-group">
-		                        <label>Ivoice</label>
+		                        <h2><b>Ivoice</b></h2>
 		                    </div>
 		                </div>
 		                <!-- /.panel-heading -->
 		                <div class="panel-body ">
 		                	<div class="row">
-		                        <form:form modelAttribute="invoice" action="${pageContext.request.contextPath}/companiesInfo" method="POST">
-		                        	<div class="col-lg-8">
-		                        		<a href="${pageContext.request.contextPath}/selectCompany" class="btn btn-primary">Select Company</a>
-	                        		</div>
-		                        	<form:errors path="*" element="div" cssClass="alert alert-danger"/>
-	                        	    <div class="col-lg-8">
-			                           <form:input type="text" path="companyInfo.name" class="form-control" placeholder="Name" readonly="true"/>
-			                    	</div>
-			                    	
-			                    	<div class="col-lg-3">
-			                           <form:input type="text" path="companyInfo.afm" class="form-control" placeholder="VAT" max="9" readonly="true"/>
-			                    	</div>
-			                    	
-			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="companyInfo.busDesc" class="form-control" placeholder="Profession" readonly="true"/>
-			                    	</div>
-			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="companyInfo.address" class="form-control" placeholder="Address" readonly="true"/>
-			                    	</div>
-     					            <div class="col-lg-3">
-				                       <form:input type="text" path="companyInfo.doy" class="form-control" placeholder="DOY" readonly="true"/>
-				                   	</div>
-			                    	
-		                    		<div class="col-lg-3">
-			                           <form:input type="text" path="companyInfo.workPhone" class="form-control" placeholder="Work phone" readonly="true"/>
-			                    	</div>
-			                    	
-			                    	<div class="col-lg-3">
-			                           <form:input type="text" path="companyInfo.mobilePhone" class="form-control" placeholder="Mobile phone" readonly="true"/>
-			                    	</div>
-			                    	
-			                    	<div class="col-lg-3">
-			                           <form:input type="text" path="companyInfo.email" class="form-control" placeholder="Email" readonly="true"/>
-			                    	</div>
-			                    	
-			                    	<div class="col-lg-12">
-			                    		<br>
-		                        		<a href="${pageContext.request.contextPath}/selectCustomer" class="btn btn-primary">Select Customer</a>
-	                        		</div>
-		                        	
-		                        	<div class="col-lg-8">
-			                           <form:input type="text" path="customer.customerName" class="form-control" placeholder="Name" readonly="true"/>
-			                    	</div>
-			                    	
-			                    	<div class="col-lg-3">
-			                           <form:input type="text" path="customer.customerAfm" class="form-control" placeholder="VAT" max="9" readonly="true"/>
-			                    	</div>
-			                    	
-			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="customer.customerBusDesc" class="form-control" placeholder="Profession" readonly="true"/>
-			                    	</div>
-			                    	<div class="col-lg-8">
-			                           <form:input type="text" path="customer.customerAddress" class="form-control" placeholder="Address" readonly="true"/>
-			                    	</div>
-     					            <div class="col-lg-3">
-				                       <form:input type="text" path="customer.customerDoy" class="form-control" placeholder="DOY" readonly="true"/>
-				                   	</div>
-			                    	
-		                    		<div class="col-lg-3">
-			                           <form:input type="text" path="customer.customerPhone" class="form-control" placeholder="Phone" readonly="true"/>
-			                    	</div>
+		                        <form:form modelAttribute="invoice" action="${pageContext.request.contextPath}/invoice" method="POST">
+		                        	<form:errors element="div" cssClass="alert alert-danger"/>
+		                        	<div class="form-group ${companyError}">
+		                        	    <div class="col-lg-12">
+			                        		<a href="${pageContext.request.contextPath}/selectCompany" class="btn btn-primary">Select Company</a>
+			                        		<form:errors path="companyId" cssClass="control-label"/>
+		                        		</div>
+		                        		
+		                        		<div class="col-lg-3">
+				                           <form:input type="text" path="companyId" class="form-control" placeholder="Company Id" readonly="true"/>
+				                    	</div>
+				                    	
+			                        	<div class="col-lg-8">
+				                           <form:input type="text" path="companyInfo.name" class="form-control" placeholder="Name" readonly="true"/>
+				                    	</div>
+				                    	
+				                    	<div class="col-lg-3">
+				                           <form:input type="text" path="companyInfo.afm" class="form-control" placeholder="VAT" max="9" readonly="true"/>
+				                    	</div>
+				                    	
+				                    	<div class="col-lg-8">
+				                           <form:input type="text" path="companyInfo.busDesc" class="form-control" placeholder="Profession" readonly="true"/>
+				                    	</div>
+				                    	<div class="col-lg-8">
+				                           <form:input type="text" path="companyInfo.address" class="form-control" placeholder="Address" readonly="true"/>
+				                    	</div>
+	     					            <div class="col-lg-3">
+					                       <form:input type="text" path="companyInfo.doy" class="form-control" placeholder="DOY" readonly="true"/>
+					                   	</div>
+				                    	
+			                    		<div class="col-lg-3">
+				                           <form:input type="text" path="companyInfo.workPhone" class="form-control" placeholder="Work phone" readonly="true"/>
+				                    	</div>
+				                    	
+				                    	<div class="col-lg-3">
+				                           <form:input type="text" path="companyInfo.mobilePhone" class="form-control" placeholder="Mobile phone" readonly="true"/>
+				                    	</div>
+				                    	
+				                    	<div class="col-lg-3">
+				                           <form:input type="text" path="companyInfo.email" class="form-control" placeholder="Email" readonly="true"/>
+				                    	</div>
+									</div>
+									<div class="form-group ${customerError}">				                    	
+				                    	<div class="col-lg-12">
+				                    		<br>
+			                        		<a href="${pageContext.request.contextPath}/selectCustomer" class="btn btn-primary">Select Customer</a>
+			                        		<form:errors path="customerId" cssClass="control-label"/>
+		                        		</div>
 
+		                        		<div class="col-lg-3">
+				                           <form:input type="text" path="customerId" class="form-control" placeholder="Customer Id" readonly="true"/>
+				                    	</div>
+			                        	
+			                        	<div class="col-lg-8">
+				                           <form:input type="text" path="customer.customerName" class="form-control" placeholder="Name" readonly="true"/>
+				                    	</div>
+
+				                    	<div class="col-lg-3">
+				                           <form:input type="text" path="customer.customerAfm" class="form-control" placeholder="VAT" max="9" readonly="true"/>
+				                    	</div>
+				                    	
+				                    	<div class="col-lg-8">
+				                           <form:input type="text" path="customer.customerBusDesc" class="form-control" placeholder="Profession" readonly="true"/>
+				                    	</div>
+				                    	<div class="col-lg-8">
+				                           <form:input type="text" path="customer.customerAddress" class="form-control" placeholder="Address" readonly="true"/>
+				                    	</div>
+	     					            <div class="col-lg-3">
+					                       <form:input type="text" path="customer.customerDoy" class="form-control" placeholder="DOY" readonly="true"/>
+					                   	</div>
+				                    	
+			                    		<div class="col-lg-3">
+				                           <form:input type="text" path="customer.customerPhone" class="form-control" placeholder="Phone" readonly="true"/>
+				                    	</div>
+									</div>
 									<div class="col-lg-12">
 										<br>
-										<b>Taxes</b>
+										<h2><b>Taxes</b></h2>
 									</div>	
 
 		                    	    <div class="col-lg-3">
-		                    	    	<form:input type="number" path="fpa" class="form-control" placeholder="FPA" pattern="##0.00"/>
+		                    	    	<div class="form-group ${fpaError}">
+			                    	    	<label class="control-label">FPA</label>
+			                    	    	<form:input type="number" path="fpa" class="form-control" placeholder="FPA" min="0" step="0.01"/>
+			                    	    	<form:errors path="fpa" cssClass="control-label"/>
+		                    	    	</div>
 		                    	    </div>
 
 		                    	    <div class="col-lg-3">
-		                    	    	<form:input type="number" path="withHolding" class="form-control" placeholder="Withholding" pattern="##0.00"/>
+		                    	    	<div class="form-group ${withHoldingError}">
+			                    	        <label class="control-label">Withholding</label>
+			                    	    	<form:input type="number" path="withHolding" class="form-control" placeholder="Withholding"  min="0" step="0.01"/>
+		   		                 	    	<form:errors path="withHolding" cssClass="control-label"/>
+		                    	    	</div>
 		                    	    </div>
-			                    	
+									<div class="col-lg-12">
+										<br>
+										<h2><b>Invoice Details</b></h2>
+										<input type="submit" name="addNewLine" class="btn btn-default" value="Add New Line"/>
+									</div>	
+				                    	
 			                    	<div class="col-lg-12">
 			                    		<br>
 				                    	<div class="table-responsive">
@@ -109,24 +135,41 @@
 					                            <tr>
 					                                <th style="width:10%">Line No</th>
 					                                <th style="width:70%">Description</th>
-					                                <th style="width:20%">Net Amount</th>
+					                                <th style="width:15%">Net Amount</th>
+					                                <th style="width:5%">Remove</th>
 					                            </tr>
 					                            </thead>
-					                                <tbody>
-					                                	<c:forEach var="invoiceLine" items="${invoice.invoiceLines }">
-					                                	    <tr class="gradeA">
-					                                            <td>${invoiceLine.lineId}</td>
-					                                            <td><textarea style="width:100%">${invoiceLine.description}</textarea></td>
-					                                            <td><input type="number" pattern="###,##0,00" value="${invoiceLine.net}" /></td>
-					                                        </tr>
-					                                    </c:forEach>    
-				                                    </tbody>
+				                                <tbody>
+				                                	<c:forEach var="invoiceLine" items="${invoice.invoiceLines }" varStatus="status">
+				                                	    <tr class="gradeA">
+				                                            <td><input type="number" name="invoiceLines[${status.index}].lineId" value="${invoiceLine.lineId}"/></td>
+				                                            <td><textarea name="invoiceLines[${status.index}].description" style="width:100%">${invoiceLine.description}</textarea></td>
+				                                            <td><input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}" /></td>
+                           									<td><input type="submit" name="removeLine" class="btn btn-danger" value="${invoiceLine.lineId}"/></td>
+				                                        </tr>
+				                                    </c:forEach>
+							                 	    <tr class="gradeA">
+			                                            <td></td>
+			                                            <td style="text-align:right"><b>Summary</b></td>
+			                                            <td><form:input path="amount" type="number" pattern="###,##0,00" readonly="true"/></td>
+			                                        </tr>
+ 									                 	    <tr class="gradeA">
+			                                            <td></td>
+			                                            <td style="text-align:right"><b>FPA</b></td>
+			                                            <td><input type="number" pattern="###,##0,00" value="${invoiceLine.fpa}" readonly/></td>
+			                                        </tr>    
+ 									                 	    <tr class="gradeA">
+			                                            <td></td>
+			                                            <td style="text-align:right"><b>Gross</b></td>
+			                                            <td><input type="number" pattern="###,##0,00" value="${invoiceLine.gross}" readonly/></td>
+			                                        </tr>    
+			                                    </tbody>
 					                        </table>
 					                    </div>
 					                </div>    
-			                    	<!-- <div class="col-lg-3">
-			                    		<a href="${pageContext.request.contextPath}/companyInfo" class="btn btn-primary">New Company</a>
-			                    	</div> -->
+			                    	<div class="col-lg-3">
+			                    		<input type="submit" name="preview" class="btn btn-primary" value="Preview"/>
+			                    	</div>
 		                    	</form:form>
 	                    	</div>
 		                </div>
@@ -136,7 +179,6 @@
             </div>
         </div>
         <!-- /#page-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 

@@ -1,11 +1,16 @@
 package com.aalexandrakis.mycrm.beans;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
-public class InvoiceLine {
+public class InvoiceLine implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer invoiceId;
 	@NotBlank
 	private String description;

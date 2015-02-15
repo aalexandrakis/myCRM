@@ -149,5 +149,24 @@
 			<version>5.1.6</version>
 		</dependency>
 		
+		<!-- Spring custom annotations -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+				
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		
 	</dependencies>	
 </project>
