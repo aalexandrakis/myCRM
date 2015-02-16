@@ -33,12 +33,18 @@ public class Invoice implements Serializable{
 	@Percent
 	private BigDecimal fpa;
 	
+	private BigDecimal fpaAmount;
+	
 	private BigDecimal taxis;
 	
 	private BigDecimal gross;
 	
 	@Percent
 	private BigDecimal withHolding;
+	
+	private BigDecimal withHoldingAmount;
+	
+	private BigDecimal receivedAmount;
 	
 	private List<InvoiceLine> invoiceLines;
 	
@@ -136,7 +142,35 @@ public class Invoice implements Serializable{
 		this.withHolding = withHolding;
 	}
 
+	
+	public BigDecimal getFpaAmount() {
+		return fpaAmount;
+	}
+
+	public void setFpaAmount(BigDecimal fpaAmount) {
+		this.fpaAmount = fpaAmount;
+	}
+
+	
+	public BigDecimal getReceivedAmount() {
+		return receivedAmount;
+	}
+
+	public void setReceivedAmount(BigDecimal receivedAmount) {
+		this.receivedAmount = receivedAmount;
+	}
+
+	
+	public BigDecimal getWithHoldingAmount() {
+		return withHoldingAmount;
+	}
+
+	public void setWithHoldingAmount(BigDecimal withHoldingAmount) {
+		this.withHoldingAmount = withHoldingAmount;
+	}
+
 	public void addNewLine(){
+		calculate();
 		if (this.invoiceLines == null) {
 			this.invoiceLines = new ArrayList<InvoiceLine>();
 		}
@@ -147,6 +181,7 @@ public class Invoice implements Serializable{
 		for (InvoiceLine line : this.invoiceLines){
 			if (line.getLineId() == lineId){
 				this.invoiceLines.remove(line);
+				break;
 			}
 		}
 		int i=0;
@@ -154,6 +189,28 @@ public class Invoice implements Serializable{
 			i++;
 			line.setLineId(i);
 		}
+		calculate();
+	}
+	
+	public void calculate(){
+		this.amount = BigDecimal.ZERO;
+		for (InvoiceLine line : invoiceLines){
+			if (line.getNet() != null){
+				this.amount = this.amount.add(line.getNet());
+			}
+		}
+		
+		
+		this.fpaAmount = (this.amount.multiply(this.fpa)).divide(new BigDecimal("100"));
+		
+		this.gross = this.amount.add(this.fpaAmount);
+		
+		if (this.withHolding != null && this.withHolding != BigDecimal.ZERO){
+			this.withHoldingAmount = this.amount.multiply(this.withHolding).divide(new BigDecimal("100"));
+			this.receivedAmount = this.amount.subtract(this.withHoldingAmount).add(this.fpaAmount);
+		}
+		
+		
 	}
 	
 }

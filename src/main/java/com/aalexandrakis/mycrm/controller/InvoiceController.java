@@ -29,17 +29,6 @@ public class InvoiceController{
 	protected ModelAndView invoiceGet(HttpServletRequest request, HttpServletResponse response, Invoice invoice) {
 		ModelAndView model = new ModelAndView("invoice");
 		model.addObject("invoiceActive", "active");
-//		if (request.getSession().getAttribute("invoice") == null
-//				|| ((Invoice) request.getSession().getAttribute("invoice")).getInvoiceLines().size()==0){
-//			List<InvoiceLine> invoiceLines = new ArrayList<InvoiceLine>();
-//			for (int i=1 ; i < 6 ; i++){
-//				invoiceLines.add(new InvoiceLine(i));
-//			}
-//			invoice.setInvoiceLines(invoiceLines);
-//			request.getSession().setAttribute("invoice", invoice);
-//		} else {
-//			invoice = (Invoice) request.getSession().getAttribute("invoice"); 
-//		}
 		if (request.getSession().getAttribute("invoice") != null){
 			invoice = (Invoice) request.getSession().getAttribute("invoice");
 		} else {
@@ -72,7 +61,7 @@ public class InvoiceController{
 		return new ModelAndView("redirect:/invoice");
 	}
 
-	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "preview")
+	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "saveAndPrint")
 	protected ModelAndView invoicePost(@Valid Invoice invoice, BindingResult result) {
 		ModelAndView model = new ModelAndView("invoice");
 		model.addObject("invoiceActive", "active");
@@ -92,7 +81,30 @@ public class InvoiceController{
 		
 		return model;
 	}
+
+	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "calculate")
+	protected ModelAndView calculate(@Valid Invoice invoice, BindingResult result) {
+		ModelAndView model = new ModelAndView("invoice");
+		model.addObject("invoiceActive", "active");
+		if (result.hasFieldErrors("companyId")){
+			model.addObject("companyError", "has-error");
+		}
+		if (result.hasFieldErrors("customerId")){
+			model.addObject("customerError", "has-error");
+		}
+		if (result.hasFieldErrors("fpa")){
+			model.addObject("fpaError", "has-error");
+		}
+		if (result.hasFieldErrors("withHolding")){
+			model.addObject("withHoldingError", "has-error");
+		}
+		invoice.calculate();
+		model.addObject("invoice", invoice);
+		
+		return model;
+	}
 	
+
 	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "addNewLine")
 	protected ModelAndView addNewLine(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("invoice") Invoice invoice){
 		invoice.addNewLine();

@@ -142,33 +142,53 @@
 				                                <tbody>
 				                                	<c:forEach var="invoiceLine" items="${invoice.invoiceLines }" varStatus="status">
 				                                	    <tr class="gradeA">
-				                                            <td><input type="number" name="invoiceLines[${status.index}].lineId" value="${invoiceLine.lineId}"/></td>
-				                                            <td><textarea name="invoiceLines[${status.index}].description" style="width:100%">${invoiceLine.description}</textarea></td>
-				                                            <td><input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}" /></td>
+				                                	    	<td>
+				                                            	<input type="number" name="invoiceLines[${status.index}].lineId" value="${invoiceLine.lineId}"/>
+			                                	    		</td>
+				                                            <td>
+                              	             	 	    		<textarea name="invoiceLines[${status.index}].description" style="width:100%">${invoiceLine.description}</textarea>
+				                                            </td>
+				                                            <td>
+	                           	             	 	    		<input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}" />
+			                                            	</td>
                            									<td><input type="submit" name="removeLine" class="btn btn-danger" value="${invoiceLine.lineId}"/></td>
 				                                        </tr>
 				                                    </c:forEach>
+				                                    <c:if test="${invoice.receivedAmount != null}">
+				                                    	<tr class="gradeA">
+				                                	    	<td>
+			                                	    		</td>
+				                                            <td>
+                              	             	 	    		<label>Έγινε παρακράτηση ${invoice.withHolding}% = ${invoice.withHoldingAmount}. Τελικό εισπρακτέο ${invoice.receivedAmount}</label>
+				                                            </td>
+				                                            <td>
+			                                            	</td>
+                           									<td>
+                           									</td>
+				                                        </tr>
+				                                    </c:if>
 							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>Summary</b></td>
-			                                            <td><form:input path="amount" type="number" pattern="###,##0,00" readonly="true"/></td>
+			                                            <td><form:input path="amount" type="number" readonly="true"/></td>
 			                                        </tr>
- 									                 	    <tr class="gradeA">
+							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>FPA</b></td>
-			                                            <td><input type="number" pattern="###,##0,00" value="${invoiceLine.fpa}" readonly/></td>
+			                                            <td><form:input type="number" path="fpaAmount" readonly="true"/></td>
 			                                        </tr>    
- 									                 	    <tr class="gradeA">
+							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>Gross</b></td>
-			                                            <td><input type="number" pattern="###,##0,00" value="${invoiceLine.gross}" readonly/></td>
+			                                            <td><form:input type="number" path="gross" readonly="true"/></td>
 			                                        </tr>    
 			                                    </tbody>
 					                        </table>
 					                    </div>
 					                </div>    
 			                    	<div class="col-lg-3">
-			                    		<input type="submit" name="preview" class="btn btn-primary" value="Preview"/>
+			                    		<input type="submit" name="calculate" class="btn btn-primary" value="Calculate"/>
+			                    		<input type="submit" name="saveAndPrint" class="btn btn-primary" value="Save & Print"/>
 			                    	</div>
 		                    	</form:form>
 	                    	</div>
