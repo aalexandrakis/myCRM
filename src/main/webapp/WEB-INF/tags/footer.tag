@@ -10,3 +10,7 @@
     
     <!-- Custom Theme JavaScript -->
     <script src="${pageContext.request.contextPath}/bootstrap/js/sb-admin-2.js"></script>
+    
+    <!-- Datetime Picker JavaScript -->
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap-datepicker.js"></script>
+   

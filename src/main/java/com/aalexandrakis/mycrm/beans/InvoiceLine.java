@@ -24,6 +24,10 @@ public class InvoiceLine implements Serializable{
 		
 	}
 
+	public InvoiceLine(String description){
+		this.description = description;
+	}
+	
 	public InvoiceLine(int lineId){
 		this.lineId = lineId;
 	}

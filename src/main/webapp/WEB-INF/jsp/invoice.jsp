@@ -101,6 +101,18 @@
 				                           <form:input type="text" path="customer.customerPhone" class="form-control" placeholder="Phone" readonly="true"/>
 				                    	</div>
 									</div>
+									<div class="form-group" style="margin-left:-12px">
+										<div class="col-lg-12">
+											<div class="col-lg-3">
+												<label>Invoice Date</label>
+						                        <div class="input-group date" id="invoiceDate">
+						                            <form:input path="invoiceDate" name="invoiceDate" type="text" class="form-control"/>
+						                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar" style="color:white"></i></span>
+						                        </div>
+			                            		<form:errors path="invoiceDate" cssClass="control-label"/>
+					                        </div>
+										</div>
+									</div>
 									<div class="col-lg-12">
 										<br>
 										<h2><b>Taxes</b></h2>
@@ -154,12 +166,12 @@
                            									<td><input type="submit" name="removeLine" class="btn btn-danger" value="${invoiceLine.lineId}"/></td>
 				                                        </tr>
 				                                    </c:forEach>
-				                                    <c:if test="${invoice.receivedAmount != null}">
+				                                    <c:if test="${invoice.withHoldingString != null}">
 				                                    	<tr class="gradeA">
 				                                	    	<td>
 			                                	    		</td>
 				                                            <td>
-                              	             	 	    		<label>Έγινε παρακράτηση ${invoice.withHolding}% = ${invoice.withHoldingAmount}. Τελικό εισπρακτέο ${invoice.receivedAmount}</label>
+                              	             	 	    		<form:input path="withHoldingString" class="form-control" readonly="true"></form:input>
 				                                            </td>
 				                                            <td>
 			                                            	</td>
@@ -203,7 +215,13 @@
     <!-- /#wrapper -->
 
   <commons:footer/>
-
+  <script>
+	$('#invoiceDate').datepicker({
+		format: "dd/mm/yyyy",
+		autoclose: true 
+	});
+  </script>
 </body>
+
 
 </html>

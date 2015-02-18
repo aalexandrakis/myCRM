@@ -22,6 +22,9 @@
     
     <!-- Custom Fonts -->
     <link href="${pageContext.request.contextPath}/bootstrap/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+   
+    <!-- Date time picker -->
+    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-datepicker.css" rel="stylesheet">
     
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

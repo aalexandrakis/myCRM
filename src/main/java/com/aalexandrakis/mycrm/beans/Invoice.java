@@ -3,10 +3,14 @@ package com.aalexandrakis.mycrm.beans;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.aalexandrakis.mycrm.validators.Percent;
 
@@ -46,8 +50,12 @@ public class Invoice implements Serializable{
 	
 	private BigDecimal receivedAmount;
 	
+	@DateTimeFormat(pattern="dd/MM/YY")
+	private Date invoiceDate;
+	
 	private List<InvoiceLine> invoiceLines;
 	
+	private String withHoldingString;
 	
 	public Invoice(){
 		this.withHolding = new BigDecimal("20.00");
@@ -169,6 +177,23 @@ public class Invoice implements Serializable{
 		this.withHoldingAmount = withHoldingAmount;
 	}
 
+	public Date getInvoiceDate() {
+		return invoiceDate;
+	}
+
+	public void setInvoiceDate(Date invoiceDate) {
+		this.invoiceDate = invoiceDate;
+	}
+
+	
+	public String getWithHoldingString() {
+		return withHoldingString;
+	}
+
+	public void setWithHoldingString(String withHoldingString) {
+		this.withHoldingString = withHoldingString;
+	}
+
 	public void addNewLine(){
 		calculate();
 		if (this.invoiceLines == null) {
@@ -194,22 +219,30 @@ public class Invoice implements Serializable{
 	
 	public void calculate(){
 		this.amount = BigDecimal.ZERO;
-		for (InvoiceLine line : invoiceLines){
-			if (line.getNet() != null){
-				this.amount = this.amount.add(line.getNet());
+		this.fpaAmount = BigDecimal.ZERO;
+		this.gross = BigDecimal.ZERO;
+		this.withHoldingAmount = BigDecimal.ZERO;
+		this.receivedAmount = BigDecimal.ZERO;
+		this.withHoldingString = null;
+		if (invoiceLines != null){
+			for (InvoiceLine line : invoiceLines){
+				if (line.getNet() != null){
+					this.amount = this.amount.add(line.getNet());
+				}
 			}
+			
+			this.fpaAmount = (this.amount.multiply(this.fpa)).divide(new BigDecimal("100"));
+			
+			this.gross = this.amount.add(this.fpaAmount);
+			
+			if (this.withHolding != null && this.withHolding != BigDecimal.ZERO){
+				this.withHoldingAmount = this.amount.multiply(this.withHolding).divide(new BigDecimal("100"));
+				this.receivedAmount = this.amount.subtract(this.withHoldingAmount).add(this.fpaAmount);
+				this.withHoldingString = "Έγινε παρακράτηση " + this.withHolding.toString() + "% = " +
+									  this.withHoldingAmount.toString() + " Euro. Τελικό εισπρακτέο " + this.receivedAmount + " Euro";
+			}
+			
 		}
-		
-		
-		this.fpaAmount = (this.amount.multiply(this.fpa)).divide(new BigDecimal("100"));
-		
-		this.gross = this.amount.add(this.fpaAmount);
-		
-		if (this.withHolding != null && this.withHolding != BigDecimal.ZERO){
-			this.withHoldingAmount = this.amount.multiply(this.withHolding).divide(new BigDecimal("100"));
-			this.receivedAmount = this.amount.subtract(this.withHoldingAmount).add(this.fpaAmount);
-		}
-		
 		
 	}
 	
