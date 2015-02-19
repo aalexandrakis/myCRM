@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aalexandrakis.mycrm.beans.Customer;
-import com.aalexandrakis.mycrm.dao.CustomerDao;
+import com.aalexandrakis.mycrm.daoimpl.CustomerDaoImpl;
+import com.aalexandrakis.mycrm.models.Customer;
 
 @Controller
 public class CustomerController{
@@ -31,7 +31,7 @@ public class CustomerController{
 		ModelAndView model = new ModelAndView("customer");
 		model.addObject("customerActive", "active");
 		try {
-			customer = CustomerDao.getCustomer(customerId);
+			customer = CustomerDaoImpl.getCustomer(customerId);
 			model.addObject("customer", customer);
 		} catch (Exception e) {
 			result.reject(e.getMessage());
@@ -70,10 +70,10 @@ public class CustomerController{
 		
 		try {
 			if (customer.getCustomerId() == null){
-				CustomerDao.saveCustomer(customer);
+				CustomerDaoImpl.saveCustomer(customer);
 				model.addObject("successMessage", "Customer added successfully");
 			} else {
-				CustomerDao.updateCustomer(customer);
+				CustomerDaoImpl.updateCustomer(customer);
 				model.addObject("successMessage", "Customer updated successfully");
 			}
 		} catch (Exception e) {

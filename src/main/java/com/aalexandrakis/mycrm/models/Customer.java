@@ -1,28 +1,39 @@
-package com.aalexandrakis.mycrm.beans;
+package com.aalexandrakis.mycrm.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Table(name="customers")
 public class Customer implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-//	@NotBlank
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="customerId")
 	private Integer customerId;
-	@NotBlank
+	@NotBlank @Column(name="customerName")
 	private String customerName;
-	@NotBlank
+	@NotBlank @Column(name="customerBusDesc")
 	private String customerBusDesc;
-	@NotBlank
+	@NotBlank @Column(name="customerDoy")
 	private String customerDoy;
-	@NotBlank
+	@NotBlank @Column(name="customerAddress")
 	private String customerAddress;
-	@NotBlank
+	@NotBlank @Column(name="customerAfm")
 	private String customerAfm;
-	@NotBlank
+	@NotBlank @Column(name="customerPhone")
 	private String customerPhone;
 	
 	public Customer() {

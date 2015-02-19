@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aalexandrakis.mycrm.beans.Supplier;
-import com.aalexandrakis.mycrm.dao.SupplierDao;
+import com.aalexandrakis.mycrm.daoimpl.SupplierDaoImpl;
+import com.aalexandrakis.mycrm.models.Supplier;
 
 @Controller
 public class SupplierController{
@@ -33,7 +33,7 @@ public class SupplierController{
 		model.addObject("supplierActive", "active");
 
 		try {
-			supplier = SupplierDao.getSupplier(supplierId);
+			supplier = SupplierDaoImpl.getSupplier(supplierId);
 			model.addObject("supplier", supplier);
 		} catch (Exception e) {
 			result.reject(e.getMessage());
@@ -73,10 +73,10 @@ public class SupplierController{
 		
 		try {
 			if (supplier.getSupplierId() == null){
-				SupplierDao.saveSupplier(supplier);
+				SupplierDaoImpl.saveSupplier(supplier);
 				model.addObject("successMessage", "Supplier added successfully");
 			} else {
-				SupplierDao.updateSupplier(supplier);
+				SupplierDaoImpl.updateSupplier(supplier);
 				model.addObject("successMessage", "Supplier updated successfully");
 			}
 		} catch (Exception e) {

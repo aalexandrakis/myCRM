@@ -1,8 +1,18 @@
-package com.aalexandrakis.mycrm.beans;
+package com.aalexandrakis.mycrm.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.validator.constraints.NotBlank;
+
+@Entity
+@Table(name="suppliers")
 
 public class Supplier implements Serializable{
 	/**
@@ -10,19 +20,21 @@ public class Supplier implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-//	@NotBlank
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="supplierId")
 	private Integer supplierId;
-	@NotBlank
+	@NotBlank @Column(name="supplierName")
 	private String supplierName;
-	@NotBlank
+	@NotBlank @Column(name="supplierBusDesc")
 	private String supplierBusDesc;
-	@NotBlank
+	@NotBlank @Column(name="supplierDoy")
 	private String supplierDoy;
-	@NotBlank
+	@NotBlank @Column(name="supplierAddress")
 	private String supplierAddress;
-	@NotBlank
+	@NotBlank @Column(name="supplierAfm")
 	private String supplierAfm;
-	@NotBlank
+	@NotBlank @Column(name="supplierPhone")
 	private String supplierPhone;
 	
 	public Supplier() {

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aalexandrakis.mycrm.beans.CompanyInfo;
-import com.aalexandrakis.mycrm.dao.CompanyInfoDao;
+import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
+import com.aalexandrakis.mycrm.models.CompanyInfo;
 
 @Controller
 public class CompanyInfoController{
@@ -26,7 +26,7 @@ public class CompanyInfoController{
 		ModelAndView model = new ModelAndView("companyInfo");
 		model.addObject("companyInfoActive", "active");
 		try {
-			companyInfo = CompanyInfoDao.getCompanyInfo(companyId);
+			companyInfo = CompanyInfoDaoImpl.getCompanyInfo(companyId);
 			model.addObject("companyInfo", companyInfo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -78,9 +78,9 @@ public class CompanyInfoController{
 		}
 		try {
 			if (companyInfo.getCompanyId() == null){
-				CompanyInfoDao.saveCompanyInfo(companyInfo);
+				CompanyInfoDaoImpl.saveCompanyInfo(companyInfo);
 			} else {
-				CompanyInfoDao.updateCompanyInfo(companyInfo);
+				CompanyInfoDaoImpl.updateCompanyInfo(companyInfo);
 			}
 			model.addObject("successMessage", "Company info added/updated successfully");
 		} catch (Exception e) {

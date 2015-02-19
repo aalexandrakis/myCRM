@@ -1,4 +1,4 @@
-package com.aalexandrakis.mycrm.dao;
+package com.aalexandrakis.mycrm.daoimpl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.aalexandrakis.mycrm.beans.Customer;
 import com.aalexandrakis.mycrm.commons.Methods;
+import com.aalexandrakis.mycrm.models.Customer;
 
-public class CustomerDao {
+public class CustomerDaoImpl {
 	
 	public static List<Customer> getCustomers(Map<String, String> parms) throws SQLException{
 		String query = "Select * from customers";

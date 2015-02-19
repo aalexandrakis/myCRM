@@ -1,4 +1,4 @@
-package com.aalexandrakis.mycrm.beans;
+package com.aalexandrakis.mycrm.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -6,51 +6,66 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Future;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.aalexandrakis.mycrm.validators.Percent;
-
+import com.aalexandrakis.mycrm.validators.ValidDate;
+@Entity
+@Table(name="invoiceHeader")
 public class Invoice implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="invoiceId")
 	private Integer invoiceId;
 
-	@NotNull @Min(1)
+	@NotNull @Min(1) @Column(name="companyId")
 	private int companyId;
 	
 	private CompanyInfo companyInfo;
 	
-	@NotNull @Min(1)
+	@NotNull @Min(1) @Column(name="companyId")
 	private int customerId;
 	
 	private Customer customer;
 	 
+	@Column(name="amount")
 	private BigDecimal amount;
 	
-	@Percent
+	@Percent @Column(name="fpa")
 	private BigDecimal fpa;
 	
+	@Column(name="fpaAmount")
 	private BigDecimal fpaAmount;
 	
+	@Column(name="taxis")
 	private BigDecimal taxis;
 	
+	@Column(name="gross")
 	private BigDecimal gross;
 	
-	@Percent
+	@Percent @Column(name="withHolding")
 	private BigDecimal withHolding;
 	
+	@Column(name="withHoldingAmount")
 	private BigDecimal withHoldingAmount;
 	
+	@Column(name="receivedAmount")
 	private BigDecimal receivedAmount;
 	
-	@DateTimeFormat(pattern="dd/MM/YY")
+	@ValidDate(format="dd/MM/yyyy") @DateTimeFormat(pattern="dd/MM/yyyy") @Column(name="invoiceDate")
 	private Date invoiceDate;
 	
 	private List<InvoiceLine> invoiceLines;
@@ -60,6 +75,7 @@ public class Invoice implements Serializable{
 	public Invoice(){
 		this.withHolding = new BigDecimal("20.00");
 		this.fpa = new BigDecimal("23.00");
+		this.taxis = BigDecimal.ZERO;
 	}
 
 	public Integer getInvoiceId() {

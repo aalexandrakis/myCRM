@@ -1,4 +1,4 @@
-package com.aalexandrakis.mycrm.beans;
+package com.aalexandrakis.mycrm.models;
 
 import java.util.ArrayList;
 import java.util.List;

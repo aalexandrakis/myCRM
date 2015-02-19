@@ -18,8 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.aalexandrakis.mycrm.beans.User;
-import com.aalexandrakis.mycrm.dao.UserDao;
+import com.aalexandrakis.mycrm.daoimpl.UserDaoImpl;
+import com.aalexandrakis.mycrm.models.User;
 
 @Controller
 public class LoginController{
@@ -37,7 +37,7 @@ public class LoginController{
 			return "login";
 		}
 		try {
-			user = UserDao.login(user.getJ_username(), user.getJ_password());
+			user = UserDaoImpl.login(user.getJ_username(), user.getJ_password());
 		} catch (Exception ex){
 			result.reject("login.fail", "Δεν έγινε ταυτοποίηση. Παρακαλώ ελέγξτε τα στοιχεία σας και προσπαθήστε ξανά.");
 			return "login";

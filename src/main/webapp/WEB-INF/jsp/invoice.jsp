@@ -101,10 +101,10 @@
 				                           <form:input type="text" path="customer.customerPhone" class="form-control" placeholder="Phone" readonly="true"/>
 				                    	</div>
 									</div>
-									<div class="form-group" style="margin-left:-12px">
+									<div class="form-group ${invoiceDateError }" style="margin-left:-12px">
 										<div class="col-lg-12">
 											<div class="col-lg-3">
-												<label>Invoice Date</label>
+												<label class="control-label">Invoice Date</label>
 						                        <div class="input-group date" id="invoiceDate">
 						                            <form:input path="invoiceDate" name="invoiceDate" type="text" class="form-control"/>
 						                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar" style="color:white"></i></span>

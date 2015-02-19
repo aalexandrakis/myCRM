@@ -1,4 +1,4 @@
-package com.aalexandrakis.mycrm.dao;
+package com.aalexandrakis.mycrm.daoimpl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.aalexandrakis.mycrm.beans.CompanyInfo;
 import com.aalexandrakis.mycrm.commons.Methods;
+import com.aalexandrakis.mycrm.models.CompanyInfo;
 
-public class CompanyInfoDao {
+public class CompanyInfoDaoImpl {
 	
 	public static boolean saveCompanyInfo(CompanyInfo companyInfo) throws SQLException{
 		String query = "Insert into companyInfo values(NULL, '" + companyInfo.getName() + "', '" +

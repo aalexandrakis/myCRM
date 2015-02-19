@@ -1,14 +1,14 @@
-package com.aalexandrakis.mycrm.dao;
+package com.aalexandrakis.mycrm.daoimpl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.aalexandrakis.mycrm.beans.User;
 import com.aalexandrakis.mycrm.commons.Methods;
+import com.aalexandrakis.mycrm.models.User;
 
-public class UserDao {
+public class UserDaoImpl {
 	
 	public static User login(String userName, String password) throws SQLException{
 		User user = new User(userName, password);

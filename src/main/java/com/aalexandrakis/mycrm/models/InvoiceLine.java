@@ -1,23 +1,33 @@
-package com.aalexandrakis.mycrm.beans;
+package com.aalexandrakis.mycrm.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
+@Entity
+@Table(name="invoiceDetails")
 public class InvoiceLine implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name="invoiceId")
 	private Integer invoiceId;
-	@NotBlank
+	@NotBlank @Column(name="description")
 	private String description;
 	
-	@NotBlank @NumberFormat(pattern = "###,###,##0.00")
+	@NotBlank @NumberFormat(pattern = "###,###,##0.00") @Column(name="net")
 	private BigDecimal net;
 	
+	@Column(name="lineId")
 	private int lineId;
 	
 	public InvoiceLine(){

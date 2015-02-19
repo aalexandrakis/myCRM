@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aalexandrakis.mycrm.beans.CompanyInfo;
-import com.aalexandrakis.mycrm.dao.CompanyInfoDao;
+import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
+import com.aalexandrakis.mycrm.models.CompanyInfo;
 
 @Controller
 public class SelectCompanyController{
@@ -21,7 +21,7 @@ public class SelectCompanyController{
 		ModelAndView model = new ModelAndView("selectCompany");
 		model.addObject("invoiceActive", "active");
 		try {
-		List<CompanyInfo> companiesInfo = CompanyInfoDao.getCompaniesInfo(null);
+		List<CompanyInfo> companiesInfo = CompanyInfoDaoImpl.getCompaniesInfo(null);
 		model.addObject("companiesInfo", companiesInfo);
 		} catch (Exception e){
 			System.out.println(e.getMessage());
@@ -44,7 +44,7 @@ public class SelectCompanyController{
 		model.addObject("invoiceActive", "active");
 		
 		try {
-		List<CompanyInfo> companiesInfo = CompanyInfoDao.getCompaniesInfo(parms);
+		List<CompanyInfo> companiesInfo = CompanyInfoDaoImpl.getCompaniesInfo(parms);
 		model.addObject("companiesInfo", companiesInfo);
 		} catch (Exception e){
 			result.reject("query.fail", e.getMessage());

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aalexandrakis.mycrm.beans.Supplier;
-import com.aalexandrakis.mycrm.dao.SupplierDao;
+import com.aalexandrakis.mycrm.daoimpl.SupplierDaoImpl;
+import com.aalexandrakis.mycrm.models.Supplier;
 
 @Controller
 public class SuppliersController{
@@ -22,7 +22,7 @@ public class SuppliersController{
 		model.addObject("supplierActive", "active");
 
 		try {
-		List<Supplier> suppliers = SupplierDao.getSuppliers(null);
+		List<Supplier> suppliers = SupplierDaoImpl.getSuppliers(null);
 		model.addObject("suppliers", suppliers);
 		} catch (Exception e){
 			System.out.println(e.getMessage());
@@ -46,7 +46,7 @@ public class SuppliersController{
 		model.addObject("supplierActive", "active");
 
 		try {
-		List<Supplier> suppliers = SupplierDao.getSuppliers(parms);
+		List<Supplier> suppliers = SupplierDaoImpl.getSuppliers(parms);
 		model.addObject("suppliers", suppliers);
 		} catch (Exception e){
 			result.reject("query.fail", e.getMessage());

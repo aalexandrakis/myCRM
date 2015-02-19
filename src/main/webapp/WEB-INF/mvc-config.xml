@@ -27,4 +27,8 @@
 			class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 			<property name="basename" value="/WEB-INF/properties/errorMessages"/>
 		</bean>
+		
+		<bean id="invoice"
+	    	class="com.aalexandrakis.mycrm.models.Invoice">
+		</bean>
 </beans>

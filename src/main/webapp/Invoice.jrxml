@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2015-02-18T06:46:31 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="myCrmAdapter"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EEEFF0"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#D8D8D8"/>
+		</conditionalStyle>
+	</style>
+	<style name="Header" forecolor="#000000" fill="Solid" hTextAlign="Center" markup="styled" isBlankWhenNull="true" fontName="SansSerif" fontSize="20" isBold="true"/>
+	<subDataset name="tableDataset" uuid="f13e6d36-5148-4ecc-bbe3-3035def80980">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<parameter name="InvoiceDate" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="InvoiceNumber" class="java.lang.Integer"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="busDesc" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="afm" class="java.lang.String"/>
+	<parameter name="doy" class="java.lang.String"/>
+	<parameter name="mobilePhone" class="java.lang.String"/>
+	<parameter name="workPhone" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="custName" class="java.lang.String"/>
+	<parameter name="custBusDesc" class="java.lang.String"/>
+	<parameter name="custDoy" class="java.lang.String"/>
+	<parameter name="custAddress" class="java.lang.String"/>
+	<parameter name="custAfm" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select invoiceHeaders.*, invoiceDetails.* from invoiceHeaders  a inner join invoiceDetails b on (a.invoiceId = b.invoiceId)
+where invoiceId = $P{invoiceNumber} 
+	 ]]>
+	</queryString>
+	<group name="Gruppo1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupFooter>
+			<band>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="232" splitType="Stretch">
+			<staticText>
+				<reportElement x="390" y="50" width="75" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Ημερομηνία]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="70" width="50" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Νο]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="83" width="25" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
+				<text><![CDATA[ΑΦΜ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="465" y="49" width="84" height="21" uuid="41052479-7bd3-4abc-945a-fb346a6db38e"/>
+				<textFieldExpression><![CDATA[$P{InvoiceDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="70" width="84" height="20" uuid="5305fc5d-f74c-4fac-8f1d-f6b7a95b2269"/>
+				<textFieldExpression><![CDATA[$P{InvoiceNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" style="Column header" isPrintRepeatedValues="false" x="0" y="28" width="320" height="25" forecolor="#000000" uuid="86e42860-af5d-46a2-94cf-8c638ee6eeff"/>
+				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="53" width="320" height="15" uuid="f51e38d2-2488-40bb-98c3-b5b963c58170"/>
+				<textFieldExpression><![CDATA[$P{busDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="68" width="320" height="15" uuid="3bc3ce91-1adb-4fdd-9e46-2887cf7eab90"/>
+				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="83" width="94" height="15" uuid="26515902-ba70-49ed-b11c-425a55adaa69"/>
+				<textFieldExpression><![CDATA[$P{afm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="121" y="83" width="25" height="15" uuid="79806ecf-5db5-4c09-88d1-4e0f645efff6"/>
+				<text><![CDATA[ΔΟΥ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="147" y="83" width="94" height="15" uuid="8932e930-b9a7-4b57-bb89-f285956976e0"/>
+				<textFieldExpression><![CDATA[$P{doy}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="98" width="25" height="15" uuid="f7c9dfc1-f8c6-4250-beb8-35996c905ecf"/>
+				<text><![CDATA[ΚΙΝ.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="26" y="98" width="94" height="15" uuid="739fe908-5ce5-4d86-b29c-744a478082ac"/>
+				<textFieldExpression><![CDATA[$P{mobilePhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="121" y="98" width="25" height="15" uuid="1f8f987b-c1ce-47f5-b1c7-fb0b9815d343"/>
+				<text><![CDATA[ΤΗΛ.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="147" y="98" width="94" height="15" uuid="acf813c3-80ed-4570-9b35-9ee3ab6d21cb"/>
+				<textFieldExpression><![CDATA[$P{workPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="113" width="39" height="15" uuid="24f5e6d2-7970-471c-b12b-2a98138364e2"/>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="113" width="280" height="15" uuid="b3cef2a6-b256-435b-a38a-50e5ced955d2"/>
+				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Header" stretchType="RelativeToBandHeight" x="80" y="0" width="400" height="28" uuid="7dd49e5a-8740-48f6-b75c-de1b068b7a08"/>
+				<text><![CDATA[ΤΙΜΟΛΟΓΙΟ ΠΑΡΟΧΗΣ ΥΠΗΡΕΣΙΩΝ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="29" width="50" height="20" uuid="9236b32e-f914-4b36-9c4d-b16ebd8a2a4e"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Τόπος]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="28" width="50" height="20" uuid="145030dd-4362-4e08-ae42-0d4ffab15e26"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Αθήνα]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="1" y="140" width="548" height="80" uuid="036a0b23-3369-434b-bb26-4dfecb00e643"/>
+				<box leftPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement x="8" y="8" width="60" height="17" uuid="0751c030-6dd7-46e6-b336-b0bba6ebbf13"/>
+					<text><![CDATA[Επωνυμία]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="8" y="25" width="60" height="19" uuid="15b09afb-f52f-4924-a571-943321deb00b"/>
+					<text><![CDATA[Επάγγελμα]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="8" y="44" width="60" height="16" uuid="00845089-4d16-497b-8c34-abc596bf74f3"/>
+					<text><![CDATA[Διεύθυνση]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="370" y="25" width="30" height="19" uuid="614ba46f-f265-447c-a49a-7610475aff56"/>
+					<text><![CDATA[ΔΟΥ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="371" y="45" width="30" height="15" uuid="09da4805-9e4a-4aa5-9eb8-a36038b5e704"/>
+					<text><![CDATA[ΑΦΜ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="68" y="9" width="473" height="16" uuid="1d967d66-73cc-4460-8a73-e2465e48ac77"/>
+					<textFieldExpression><![CDATA[$P{custName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="68" y="25" width="302" height="19" uuid="2d9355f3-4a86-4daf-9e1e-67076f32596f"/>
+					<textFieldExpression><![CDATA[$P{custBusDesc}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="68" y="44" width="302" height="19" uuid="015b8e41-bc4c-4621-9562-a212faad56d3"/>
+					<textFieldExpression><![CDATA[$P{custAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="400" y="25" width="140" height="20" uuid="67b39e4d-cd42-4b9b-afa9-1cc4a9247e6c"/>
+					<textFieldExpression><![CDATA[$P{custDoy}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="401" y="45" width="140" height="20" uuid="cfe0950d-5e40-4b5f-8a6a-0009ba58d99b"/>
+					<textFieldExpression><![CDATA[$P{custAddress}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement x="1" y="0" width="379" height="20" uuid="995ba838-9299-4af8-9665-a5c80919cc2a"/>
+				<text><![CDATA[Περιγραφή]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="166" height="20" uuid="bea6e692-7622-4650-9429-3547c84849d0"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Ποσό]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34"/>
+	</detail>
+	<lastPageFooter>
+		<band height="177">
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="30" width="261" height="101" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36"/>
+				<box>
+					<topPen lineWidth="1.1" lineStyle="Dashed"/>
+					<leftPen lineWidth="1.1" lineStyle="Dashed"/>
+					<bottomPen lineWidth="1.1" lineStyle="Dashed"/>
+					<rightPen lineWidth="1.1" lineStyle="Dashed"/>
+				</box>
+				<text><![CDATA[Your notes here]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="147" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[THANKYOU FOR YOUR BUSINESS]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>
