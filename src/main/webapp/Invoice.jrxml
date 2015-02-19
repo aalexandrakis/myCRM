@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
-<!-- 2015-02-18T06:46:31 -->
+<!-- 2015-02-19T17:16:05 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="myCrmAdapter"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -59,28 +59,96 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
-	<parameter name="InvoiceDate" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-	</parameter>
-	<parameter name="InvoiceNumber" class="java.lang.Integer"/>
-	<parameter name="name" class="java.lang.String"/>
-	<parameter name="busDesc" class="java.lang.String"/>
-	<parameter name="address" class="java.lang.String"/>
-	<parameter name="afm" class="java.lang.String"/>
-	<parameter name="doy" class="java.lang.String"/>
-	<parameter name="mobilePhone" class="java.lang.String"/>
-	<parameter name="workPhone" class="java.lang.String"/>
-	<parameter name="email" class="java.lang.String"/>
-	<parameter name="custName" class="java.lang.String"/>
-	<parameter name="custBusDesc" class="java.lang.String"/>
-	<parameter name="custDoy" class="java.lang.String"/>
-	<parameter name="custAddress" class="java.lang.String"/>
-	<parameter name="custAfm" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[select invoiceHeaders.*, invoiceDetails.* from invoiceHeaders  a inner join invoiceDetails b on (a.invoiceId = b.invoiceId)
-where invoiceId = $P{invoiceNumber} 
-	 ]]>
+		<![CDATA[SELECT * 
+FROM (invoiceHeader H
+INNER JOIN companyInfo CI ON H.companyId = CI.companyId )
+INNER JOIN customers CU ON H.customerId = CU.customerID
+WHERE invoiceId =1]]>
 	</queryString>
+	<field name="invoiceId" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="companyId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fpa" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxis" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gross" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="withHolding" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fpaAmount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="withHoldingAmount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="receivedAmount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invoiceDate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="withHoldingString" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLUMN_14" class="java.lang.Integer"/>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="busDesc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="afm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="doy" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mobilePhone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="workPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLUMN_23" class="java.lang.Integer"/>
+	<field name="customerName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerBusDesc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerDoy" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerAfm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<group name="Gruppo1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
 		<groupFooter>
@@ -110,27 +178,27 @@ where invoiceId = $P{invoiceNumber}
 			</staticText>
 			<textField>
 				<reportElement x="465" y="49" width="84" height="21" uuid="41052479-7bd3-4abc-945a-fb346a6db38e"/>
-				<textFieldExpression><![CDATA[$P{InvoiceDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoiceDate}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="465" y="70" width="84" height="20" uuid="5305fc5d-f74c-4fac-8f1d-f6b7a95b2269"/>
-				<textFieldExpression><![CDATA[$P{InvoiceNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoiceId}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement key="" style="Column header" isPrintRepeatedValues="false" x="0" y="28" width="320" height="25" forecolor="#000000" uuid="86e42860-af5d-46a2-94cf-8c638ee6eeff"/>
-				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="53" width="320" height="15" uuid="f51e38d2-2488-40bb-98c3-b5b963c58170"/>
-				<textFieldExpression><![CDATA[$P{busDesc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{busDesc}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="68" width="320" height="15" uuid="3bc3ce91-1adb-4fdd-9e46-2887cf7eab90"/>
-				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="26" y="83" width="94" height="15" uuid="26515902-ba70-49ed-b11c-425a55adaa69"/>
-				<textFieldExpression><![CDATA[$P{afm}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{afm}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="121" y="83" width="25" height="15" uuid="79806ecf-5db5-4c09-88d1-4e0f645efff6"/>
@@ -138,7 +206,7 @@ where invoiceId = $P{invoiceNumber}
 			</staticText>
 			<textField>
 				<reportElement x="147" y="83" width="94" height="15" uuid="8932e930-b9a7-4b57-bb89-f285956976e0"/>
-				<textFieldExpression><![CDATA[$P{doy}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{doy}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="98" width="25" height="15" uuid="f7c9dfc1-f8c6-4250-beb8-35996c905ecf"/>
@@ -146,7 +214,7 @@ where invoiceId = $P{invoiceNumber}
 			</staticText>
 			<textField>
 				<reportElement x="26" y="98" width="94" height="15" uuid="739fe908-5ce5-4d86-b29c-744a478082ac"/>
-				<textFieldExpression><![CDATA[$P{mobilePhone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{mobilePhone}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="121" y="98" width="25" height="15" uuid="1f8f987b-c1ce-47f5-b1c7-fb0b9815d343"/>
@@ -154,7 +222,7 @@ where invoiceId = $P{invoiceNumber}
 			</staticText>
 			<textField>
 				<reportElement x="147" y="98" width="94" height="15" uuid="acf813c3-80ed-4570-9b35-9ee3ab6d21cb"/>
-				<textFieldExpression><![CDATA[$P{workPhone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{workPhone}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="113" width="39" height="15" uuid="24f5e6d2-7970-471c-b12b-2a98138364e2"/>
@@ -162,7 +230,7 @@ where invoiceId = $P{invoiceNumber}
 			</staticText>
 			<textField>
 				<reportElement x="40" y="113" width="280" height="15" uuid="b3cef2a6-b256-435b-a38a-50e5ced955d2"/>
-				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Header" stretchType="RelativeToBandHeight" x="80" y="0" width="400" height="28" uuid="7dd49e5a-8740-48f6-b75c-de1b068b7a08"/>
@@ -210,23 +278,23 @@ where invoiceId = $P{invoiceNumber}
 				</staticText>
 				<textField>
 					<reportElement x="68" y="9" width="473" height="16" uuid="1d967d66-73cc-4460-8a73-e2465e48ac77"/>
-					<textFieldExpression><![CDATA[$P{custName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="68" y="25" width="302" height="19" uuid="2d9355f3-4a86-4daf-9e1e-67076f32596f"/>
-					<textFieldExpression><![CDATA[$P{custBusDesc}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{customerBusDesc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="68" y="44" width="302" height="19" uuid="015b8e41-bc4c-4621-9562-a212faad56d3"/>
-					<textFieldExpression><![CDATA[$P{custAddress}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{customerAddress}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="400" y="25" width="140" height="20" uuid="67b39e4d-cd42-4b9b-afa9-1cc4a9247e6c"/>
-					<textFieldExpression><![CDATA[$P{custDoy}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{customerDoy}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="401" y="45" width="140" height="20" uuid="cfe0950d-5e40-4b5f-8a6a-0009ba58d99b"/>
-					<textFieldExpression><![CDATA[$P{custAddress}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{customerAddress}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
