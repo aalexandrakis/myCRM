@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
-<!-- 2015-02-21T12:22:05 -->
+<!-- 2015-02-21T15:58:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="myCrmAdapter"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -120,7 +120,7 @@
 	<subDataset name="tableDataset" uuid="f13e6d36-5148-4ecc-bbe3-3035def80980">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="myCrmAdapter"/>
 		<queryString language="SQL">
-			<![CDATA[select * from invoiceDetails where invoiceId = 1]]>
+			<![CDATA[select * from invoiceDetails where invoiceId = 10]]>
 		</queryString>
 		<field name="invoiceId" class="java.lang.Long">
 			<fieldDescription><![CDATA[]]></fieldDescription>
@@ -137,10 +137,10 @@
 	</subDataset>
 	<queryString language="SQL">
 		<![CDATA[SELECT * 
-FROM (invoiceHeader H
-INNER JOIN companyInfo CI ON H.companyId = CI.companyId )
+FROM invoiceHeader H
+INNER JOIN companyInfo CI ON H.companyId = CI.companyId 
 INNER JOIN customers CU ON H.customerId = CU.customerID
-WHERE invoiceId =1]]>
+WHERE invoiceId =10]]>
 	</queryString>
 	<field name="invoiceId" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -181,7 +181,6 @@ WHERE invoiceId =1]]>
 	<field name="withHoldingString" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="COLUMN_14" class="java.lang.Integer"/>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -206,7 +205,6 @@ WHERE invoiceId =1]]>
 	<field name="email" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="COLUMN_23" class="java.lang.Integer"/>
 	<field name="customerName" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -225,6 +223,11 @@ WHERE invoiceId =1]]>
 	<field name="customerPhone" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="words" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLUMN_15" class="java.lang.Integer"/>
+	<field name="COLUMN_24" class="java.lang.Integer"/>
 	<group name="Gruppo1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
 		<groupFooter>
@@ -494,9 +497,9 @@ WHERE invoiceId =1]]>
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="107">
+		<band height="117">
 			<frame>
-				<reportElement x="320" y="10" width="240" height="90" uuid="b1eadc1c-59bf-40e7-b0a4-10ea5497ac5d"/>
+				<reportElement x="320" y="10" width="240" height="100" uuid="b1eadc1c-59bf-40e7-b0a4-10ea5497ac5d"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -504,7 +507,7 @@ WHERE invoiceId =1]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<staticText>
-					<reportElement style="Column header" x="26" y="32" width="50" height="20" uuid="3f02fa57-435a-4200-a1b8-28f32ce7dd93"/>
+					<reportElement style="Column header" x="26" y="37" width="50" height="20" uuid="3f02fa57-435a-4200-a1b8-28f32ce7dd93"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -515,7 +518,7 @@ WHERE invoiceId =1]]>
 					<text><![CDATA[ΦΠΑ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="0" y="59" width="77" height="20" uuid="29672960-ccdb-434b-89bd-b6dc34d1ab88"/>
+					<reportElement style="Column header" x="0" y="68" width="77" height="20" uuid="29672960-ccdb-434b-89bd-b6dc34d1ab88"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -537,7 +540,7 @@ WHERE invoiceId =1]]>
 					<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="122" y="59" width="107" height="20" uuid="94a9e2f0-d125-4aac-9fbb-7564005dcf9c"/>
+					<reportElement x="122" y="68" width="107" height="20" uuid="94a9e2f0-d125-4aac-9fbb-7564005dcf9c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -548,7 +551,7 @@ WHERE invoiceId =1]]>
 					<textFieldExpression><![CDATA[$F{gross}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="121" y="32" width="107" height="20" uuid="2ed4b1ae-ad8a-49ca-90a5-5a09add967c8"/>
+					<reportElement x="121" y="37" width="107" height="20" uuid="2ed4b1ae-ad8a-49ca-90a5-5a09add967c8"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -559,7 +562,7 @@ WHERE invoiceId =1]]>
 					<textFieldExpression><![CDATA[$F{fpaAmount}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="76" y="32" width="44" height="20" uuid="f9c0cacc-14e6-4bde-b998-c3f3f21946f1">
+					<reportElement x="76" y="37" width="44" height="20" uuid="f9c0cacc-14e6-4bde-b998-c3f3f21946f1">
 						<property name="local_mesure_unitheight" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -585,12 +588,26 @@ WHERE invoiceId =1]]>
 				</staticText>
 			</frame>
 			<staticText>
-				<reportElement x="-10" y="12" width="100" height="16" uuid="353bdd1c-8bf9-4b68-8301-3fee44ea72d1"/>
+				<reportElement x="-10" y="12" width="210" height="20" uuid="353bdd1c-8bf9-4b68-8301-3fee44ea72d1"/>
 				<textElement>
-					<font fontName="Lucida Sans"/>
+					<font fontName="Lucida Sans" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Ποσό ολογράφος]]></text>
+				<text><![CDATA[Ποσό ολογράφως]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="-10" y="32" width="320" height="30" backcolor="#CCC0C0" uuid="932deb56-76c1-4b7b-bb3b-d89f0957bd49"/>
+				<textFieldExpression><![CDATA[$F{words}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-10" y="78" width="63" height="20" uuid="b91e06da-519c-47e1-9246-d2e8d4b20411"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Έκδοση]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="57" y="67" width="253" height="43" backcolor="#DBD5D5" uuid="bf7287b6-10d8-4f0c-a239-5e57220a2b63"/>
+			</rectangle>
 		</band>
 	</lastPageFooter>
 </jasperReport>
