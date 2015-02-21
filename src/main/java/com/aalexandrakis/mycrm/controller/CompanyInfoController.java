@@ -80,7 +80,7 @@ public class CompanyInfoController{
 			if (companyInfo.getCompanyId() == null){
 				CompanyInfoDaoImpl.saveCompanyInfo(companyInfo);
 			} else {
-				CompanyInfoDaoImpl.updateCompanyInfo(companyInfo);
+				CompanyInfoDaoImpl.saveCompanyInfo(companyInfo);
 			}
 			model.addObject("successMessage", "Company info added/updated successfully");
 		} catch (Exception e) {

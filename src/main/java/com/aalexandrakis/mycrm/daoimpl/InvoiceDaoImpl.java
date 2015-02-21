@@ -6,12 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import com.aalexandrakis.mycrm.commons.Methods;
-import com.aalexandrakis.mycrm.models.CompanyInfo;
 import com.aalexandrakis.mycrm.models.Invoice;
 import com.aalexandrakis.mycrm.models.InvoiceLine;
 
