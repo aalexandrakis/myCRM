@@ -31,22 +31,23 @@ public class InvoiceDaoImpl {
 														  invoice.getWithHoldingAmount() + "', '" +
 														  invoice.getReceivedAmount() + "', '" + 
 														  df.format(invoice.getInvoiceDate()) + "', '" +
-														  invoice.getWithHoldingString() + "')";
+														  invoice.getWithHoldingString() + "', '" +
+														  invoice.getWords() + "')";
 		System.out.println(query);
 		Connection con = Methods.getConnection();
 		Statement stm = con.createStatement();
-		int invoiceId = 0;
-		stm.executeUpdate(query, invoiceId);
-//		invoice.setInvoiceId(stm.getGeneratedKeys().getInt(0));
+		stm.executeUpdate(query);
+		ResultSet rs = stm.getGeneratedKeys();
+//		System.out.println("invoice id " + rs.getInt(1));
 		for (InvoiceLine line : invoice.getInvoiceLines()){
-			query = "Insert into invoiceDetails values(" + invoiceId + " , '" + 
+			query = "Insert into invoiceDetails values(" + 10 + " , '" + 
 														   line.getDescription() + "', '" +
 														   line.getNet() + "', '" + 
 														   line.getLineId() + "')";
-			System.out.println(query);
+			System.out.println("detail query " + query);
 			stm.executeUpdate(query);
 		}
-		
+		rs.close();
 		stm.close();
 		con.close();
 		return true;

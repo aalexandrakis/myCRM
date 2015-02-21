@@ -197,7 +197,12 @@
 			                                    </tbody>
 					                        </table>
 					                    </div>
-					                </div>    
+					                </div>   
+					                <div class="col-lg-12">
+					                	<label class="control-label">Ολογράφως</label>
+					                	<form:input type="text" path="words" class="form-control" readonly="true"/>
+					                	<br>
+					                </div> 
 			                    	<div class="col-lg-3">
 			                    		<input type="submit" name="calculate" class="btn btn-primary" value="Calculate"/>
 			                    		<input type="submit" name="saveAndPrint" class="btn btn-primary" value="Save & Print"/>
