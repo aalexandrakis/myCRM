@@ -31,4 +31,8 @@
 		<bean id="invoice"
 	    	class="com.aalexandrakis.mycrm.models.Invoice">
 		</bean>
+		
+		<!-- <bean id="hibernateUtil"
+			class="com.aalexandrakis.mycrm.util.HibernateUtil">
+		</bean>  -->
 </beans>

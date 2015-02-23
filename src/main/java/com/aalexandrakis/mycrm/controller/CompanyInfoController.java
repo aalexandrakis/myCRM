@@ -16,13 +16,12 @@ import com.aalexandrakis.mycrm.models.CompanyInfo;
 
 @Controller
 public class CompanyInfoController{
+	
 	@Autowired
 	private ApplicationContext appContext;
 	
-	
-	@RequestMapping("/companyInfo/{companyId}")
-	protected ModelAndView companyInfo(@Valid CompanyInfo companyInfo, @PathVariable Integer companyId) {
-		
+	@RequestMapping(value = "/companyInfo/{companyId}", method=RequestMethod.GET)
+	protected ModelAndView companyInfo(CompanyInfo companyInfo, @PathVariable int companyId) {
 		ModelAndView model = new ModelAndView("companyInfo");
 		model.addObject("companyInfoActive", "active");
 		try {
@@ -80,7 +79,7 @@ public class CompanyInfoController{
 			if (companyInfo.getCompanyId() == null){
 				CompanyInfoDaoImpl.saveCompanyInfo(companyInfo);
 			} else {
-				CompanyInfoDaoImpl.saveCompanyInfo(companyInfo);
+				CompanyInfoDaoImpl.updateCompanyInfo(companyInfo);
 			}
 			model.addObject("successMessage", "Company info added/updated successfully");
 		} catch (Exception e) {
