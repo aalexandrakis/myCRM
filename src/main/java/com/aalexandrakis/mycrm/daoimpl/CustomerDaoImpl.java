@@ -1,20 +1,49 @@
 package com.aalexandrakis.mycrm.daoimpl;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.aalexandrakis.mycrm.commons.Methods;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.aalexandrakis.mycrm.models.Customer;
+import com.aalexandrakis.mycrm.util.HibernateUtil;
 
 public class CustomerDaoImpl {
 	
-	public static List<Customer> getCustomers(Map<String, String> parms) throws SQLException{
-		String query = "Select * from customers";
+	public static void saveCustomer(Customer customer) throws Exception {
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(customer);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+
+	public static void updateCustomer(Customer customer) throws Exception {
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.update(customer);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	public static Customer getCustomer(Integer customerId) throws Exception{
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		Customer customer = (Customer) session.get(Customer.class, customerId);
+		session.getTransaction().commit();
+		session.close();
+		return customer;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Customer> getCustomers(Map<String, String> parms) throws Exception{
+		String query = "from Customer";
 		if (parms != null){
 			int counter = 0;
 			for (String key : parms.keySet()){
@@ -27,91 +56,14 @@ public class CustomerDaoImpl {
 				counter++;
 			}
 		}
-		Connection con = Methods.getConnection();
-		Statement stm = con.createStatement();
-	    ResultSet rs =  stm.executeQuery(query);
-	    List<Customer> customers = new ArrayList<Customer>();
-		while (rs.next()){
-			Customer customer = new Customer();
-			customer.setCustomerAfm(rs.getString("customerAfm"));
-			customer.setCustomerName(rs.getString("customerName"));
-			customer.setCustomerBusDesc(rs.getString("customerBusDesc"));
-			customer.setCustomerDoy(rs.getString("customerDoy"));
-			customer.setCustomerAddress(rs.getString("customerAddress"));
-			customer.setCustomerId(rs.getInt("customerId"));
-			customer.setCustomerPhone(rs.getString("customerPhone"));
-			customers.add(customer);
-		}
-		rs.close();
-		stm.close();
-		con.close();
+		List<Customer> customers = new ArrayList<Customer>();
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		customers = session.createQuery(query).list();
+		session.getTransaction().commit();
+		session.close();
 		
 		return customers;
-	}
-	
-	public static boolean saveCustomer(Customer customer) throws Exception{
-		String query = "Insert into customers values(NULL, '" + customer.getCustomerName() + "', '" +
-																customer.getCustomerBusDesc() + "', '" +
-																customer.getCustomerDoy() + "', '" +
-																customer.getCustomerAddress() + "', '" +
-																customer.getCustomerAfm() + "', '" +
-																customer.getCustomerPhone() + "')";
-		Connection con = Methods.getConnection();
-		Statement stm = con.createStatement();
-	    try {
-	    	stm.executeUpdate(query);
-	    } catch (Exception e){
-	    	throw e;
-	    } finally {
-			stm.close();
-			con.close();
-	    }
-		return true;
-	}
-
-	public static boolean updateCustomer(Customer customer) throws Exception{
-		String query = "Update customers set customerName = '" + customer.getCustomerName() + "', " +
-										 "customerBusDesc = '" + customer.getCustomerBusDesc() + "', " +
-										 "customerDoy = '" + customer.getCustomerDoy() + "', " +
-										 "customerAddress = '" + customer.getCustomerAddress() + "', " +
-										 "customerAfm = '" + 	customer.getCustomerAfm() + "', " +
-										 "customerPhone = '" + 	customer.getCustomerPhone() + "' " + 
-										 "where customerId = " + customer.getCustomerId();
-		Connection con = Methods.getConnection();
-		Statement stm = con.createStatement();
-	    try {
-	    	stm.executeUpdate(query);
-	    } catch (Exception e){
-	    	throw e;
-	    } finally {
-			stm.close();
-			con.close();
-	    }
-		return true;
-	}
-
-	public static Customer getCustomer(Integer customerId) throws Exception{
-		Connection con = Methods.getConnection();
-		Statement stm = con.createStatement();
-	    ResultSet rs =  stm.executeQuery("Select * from customers where customerId = " + customerId);
-		Customer customer = new Customer();
-		try {
-			while (rs.next()){
-				customer.setCustomerAfm(rs.getString("customerAfm"));
-				customer.setCustomerName(rs.getString("customerName"));
-				customer.setCustomerBusDesc(rs.getString("customerBusDesc"));
-				customer.setCustomerDoy(rs.getString("customerDoy"));
-				customer.setCustomerAddress(rs.getString("customerAddress"));
-				customer.setCustomerId(rs.getInt("customerId"));
-				customer.setCustomerPhone(rs.getString("customerPhone"));
-			}
-		}  catch (Exception e){
-			throw e;
-		} finally {
-			rs.close();
-			stm.close();
-			con.close();
-		}
-		return customer;
 	}
 }
