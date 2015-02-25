@@ -21,8 +21,8 @@ public class HibernateUtil {
             Properties props = new Properties();
             props.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
             props.put("hibernate.connection.url", "jdbc:mysql://localhost:3306/myCrm?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8");
-            props.put("hibernate.connection.username", "aalexand");
-            props.put("hibernate.connection.password", "123");
+            props.put("hibernate.connection.username", System.getenv("MYCRM_DB_USERNAME"));
+            props.put("hibernate.connection.password", System.getenv("MYCRM_DB_PASSWORD"));
             props.put("hibernate.current_session_context_class", "thread");
             props.put("hibernate.connection.CharSet", "utf-8");
             props.put("hibernate.connection.characterEncoding", "utf-8");

@@ -1,19 +1,37 @@
 package com.aalexandrakis.mycrm.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Table(name="users")
 public class User {
 	
-	@NotBlank
+	@NotBlank @Id @Column(name="j_username")
 	private String j_username;
 	
-	@NotBlank
+	@NotBlank @Column(name="j_password")
 	private String j_password;
 
-	private List<String> roles;
+	@Column(name="userEmail")
+	private String email;
+	
+	@OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Collection<Role> rolesList = new LinkedHashSet<Role>();
+	
 	
 	public User() {
 		super();
@@ -42,20 +60,30 @@ public class User {
 	public void setJ_password(String j_password) {
 		this.j_password = j_password;
 	}
-
-	public List<String> getRoles() {
-		return roles;
+	
+	public Collection<Role> getRolesList() {
+		return rolesList;
 	}
 
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
+	public void setRolesList(Collection<Role> roles) {
+		this.rolesList = roles;
 	}
 	
-	public void addRole(String role){
-		if (this.roles == null){
-			this.roles = new ArrayList<String>();
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String[] getRolesArray(){
+		List<String> roles = new ArrayList<String>();
+		Iterator<Role> itr = this.rolesList.iterator();
+		while(itr.hasNext()){
+			roles.add(itr.next().getRole());
 		}
-		this.roles.add(role);
+		return roles.toArray(new String[roles.size()]);
 	}
 	
 }

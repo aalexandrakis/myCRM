@@ -1,28 +1,35 @@
 package com.aalexandrakis.mycrm.daoimpl;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
 
-import com.aalexandrakis.mycrm.commons.Methods;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.aalexandrakis.mycrm.models.User;
+import com.aalexandrakis.mycrm.util.HibernateUtil;
 
 public class UserDaoImpl {
 	
-	public static User login(String userName, String password) throws SQLException{
-		User user = new User(userName, password);
-		Connection con = Methods.getConnection(userName, password);
-		Statement stm = con.createStatement();
-		String query;
-		query = "Select role from roles where user = '" + userName + "'";
-		ResultSet rs =  stm.executeQuery(query);
-		while (rs.next()){
-			user.addRole(rs.getString("role"));
+	
+	@SuppressWarnings("unchecked")
+	public static User getUser(String userName, String userPassword) throws Exception{
+		String query = "from User u where  u.j_username = '" + userName + "' and u.j_password = '" + userPassword+ "'";
+		System.out.println("in get user method " + query);
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		User user = null;
+		try {
+			List<User> users = (List<User>) session.createQuery(query).list();
+			System.out.println("list size " + users.size());
+			if (!users.isEmpty()){
+				user = users.get(0);
+			} 
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			session.close();
 		}
-		rs.close();
-		stm.close();
-		con.close();
 		return user;
 	}
 }

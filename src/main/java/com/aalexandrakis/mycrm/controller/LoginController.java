@@ -37,7 +37,8 @@ public class LoginController{
 			return "login";
 		}
 		try {
-			user = UserDaoImpl.login(user.getJ_username(), user.getJ_password());
+			System.out.println("username " + user.getJ_username() + " password " + Sha1.getHash(user.getJ_password()));
+			user = UserDaoImpl.getUser(user.getJ_username(), Sha1.getHash(user.getJ_password()));
 		} catch (Exception ex){
 			result.reject("login.fail", "Δεν έγινε ταυτοποίηση. Παρακαλώ ελέγξτε τα στοιχεία σας και προσπαθήστε ξανά.");
 			return "login";
@@ -45,7 +46,7 @@ public class LoginController{
 		
 		try {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(user.getJ_username(), user.getJ_password(),
-					AuthorityUtils.createAuthorityList(user.getRoles().toArray(new String[user.getRoles().size()])));
+					AuthorityUtils.createAuthorityList(user.getRolesArray()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			successHandler.onAuthenticationSuccess(request, response, authentication);
 		} catch (NullPointerException e) {

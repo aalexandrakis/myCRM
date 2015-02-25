@@ -17,5 +17,7 @@
         
         <!-- Mapping with model class containing annotations -->
         <mapping class="com.aalexandrakis.mycrm.models.CompanyInfo"/>
+        <mapping class="com.aalexandrakis.mycrm.models.User"/>
+        <mapping class="com.aalexandrakis.mycrm.models.Role"/>
     </session-factory>
 </hibernate-configuration>
