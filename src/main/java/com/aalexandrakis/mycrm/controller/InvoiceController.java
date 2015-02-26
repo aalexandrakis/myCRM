@@ -1,7 +1,5 @@
 package com.aalexandrakis.mycrm.controller;
 
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -97,7 +95,7 @@ public class InvoiceController{
 				InvoiceDaoImpl.saveInvoice(invoice);
 				invoice = null;
 				return model;
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
 				result.reject(e.getMessage());

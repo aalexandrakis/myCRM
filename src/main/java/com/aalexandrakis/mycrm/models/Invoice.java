@@ -8,12 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -34,13 +38,15 @@ public class Invoice implements Serializable{
 	private Integer invoiceId;
 
 	@NotNull @Min(1) @Column(name="companyId")
-	private int companyId;
+	private Integer companyId;
 	
+	@Transient
 	private CompanyInfo companyInfo;
 	
-	@NotNull @Min(1) @Column(name="companyId")
-	private int customerId;
+	@NotNull @Min(1) @Column(name="customerId")
+	private Integer customerId;
 	
+	@Transient
 	private Customer customer;
 	 
 	@Column(name="amount")
@@ -70,6 +76,7 @@ public class Invoice implements Serializable{
 	@ValidDate(format="dd/MM/yyyy") @DateTimeFormat(pattern="dd/MM/yyyy") @Column(name="invoiceDate")
 	private Date invoiceDate;
 	
+	@OneToMany(mappedBy="invoice", fetch = FetchType.EAGER)
 	private List<InvoiceLine> invoiceLines;
 	
 	@Column(name="withHoldingString")
@@ -92,19 +99,19 @@ public class Invoice implements Serializable{
 		this.invoiceId = invoiceId;
 	}
 
-	public int getCompanyId() {
+	public Integer getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(int companyId) {
+	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
 
-	public int getCustomerId() {
+	public Integer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 

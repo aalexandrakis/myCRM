@@ -5,7 +5,11 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,11 +28,16 @@ public class InvoiceLine implements Serializable{
 	@NotBlank @Column(name="description")
 	private String description;
 	
-	@NotBlank @NumberFormat(pattern = "###,###,##0.00") @Column(name="net")
+	@NumberFormat(pattern = "###,###,##0.00") @Column(name="net")
 	private BigDecimal net;
 	
 	@Column(name="lineId")
 	private int lineId;
+	
+	@ManyToOne  
+	@JoinColumn(name="invoiceId", insertable = false, updatable = false)
+	private Invoice invoice;
+
 	
 	public InvoiceLine(){
 		
@@ -72,6 +81,14 @@ public class InvoiceLine implements Serializable{
 
 	public void setLineId(int lineId) {
 		this.lineId = lineId;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 	
 	
