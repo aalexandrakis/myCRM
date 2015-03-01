@@ -56,7 +56,7 @@
                             <a class="${supplierActive }" href="${pageContext.request.contextPath}/suppliers">Suppliers</a>
                         </li>
                         <li>
-                            <a class="${invoiceActive }" href="${pageContext.request.contextPath}/invoice">Invoices</a>
+                            <a class="${invoiceActive }" href="${pageContext.request.contextPath}/invoices">Invoices</a>
                         </li>
                         
                     </ul>

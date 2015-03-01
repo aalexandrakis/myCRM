@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +17,8 @@ import com.aalexandrakis.mycrm.models.Customer;
 @Controller
 public class SelectCustomerController{
 
-	@RequestMapping("/selectCustomer")
-	protected ModelAndView customers(Customer customer) {
+	@RequestMapping("/selectCustomer/{target}")
+	protected ModelAndView customers(Customer customer, @PathVariable String target) {
 		ModelAndView model = new ModelAndView("selectCustomer");
 		model.addObject("invoiceActive", "active");
 		try {
@@ -31,8 +32,8 @@ public class SelectCustomerController{
 		return model;
 	}
 
-	@RequestMapping(value = "/selectCustomer", method = RequestMethod.POST)
-	protected ModelAndView customers(Customer customer, BindingResult result) {
+	@RequestMapping(value = "/selectCustomer/{target}", method = RequestMethod.POST)
+	protected ModelAndView customers(Customer customer, @PathVariable String target, BindingResult result) {
 		Map<String, String> parms = new HashMap<String, String>();
 		if (customer.getCustomerName() != null && !customer.getCustomerName().isEmpty()){
 			parms.put("customerName", customer.getCustomerName());
@@ -44,8 +45,8 @@ public class SelectCustomerController{
 		model.addObject("invoiceActive", "active");
 		
 		try {
-		List<Customer> customers = CustomerDaoImpl.getCustomers(parms);
-		model.addObject("customers", customers);
+			List<Customer> customers = CustomerDaoImpl.getCustomers(parms);
+			model.addObject("customers", customers);
 		} catch (Exception e){
 			result.reject("query.fail", e.getMessage());
 			return model;

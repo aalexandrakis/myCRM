@@ -21,7 +21,6 @@ public class UserDaoImpl {
 		User user = null;
 		try {
 			List<User> users = (List<User>) session.createQuery(query).list();
-			System.out.println("list size " + users.size());
 			if (!users.isEmpty()){
 				user = users.get(0);
 			} 

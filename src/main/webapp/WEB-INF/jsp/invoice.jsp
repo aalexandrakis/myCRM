@@ -20,17 +20,25 @@
                 <div class="panel panel-default">
 		                <div class="panel-heading">
 		                    <div class="form-group">
-		                        <h2><b>Ivoice</b></h2>
+		                        <h2>
+		                        	<b>Ivoice</b>
+		                        	<c:if test="${not empty invoice.invoiceId}">
+		                        		<b>Number : </b>
+		                        		<b>${invoice.invoiceId}</b>
+		                        	</c:if>
+	                        	</h2>
 		                    </div>
 		                </div>
 		                <!-- /.panel-heading -->
 		                <div class="panel-body ">
 		                	<div class="row">
 		                        <form:form modelAttribute="invoice" action="${pageContext.request.contextPath}/invoice" method="POST">
-		                        	<form:errors element="div" cssClass="alert alert-danger"/>
+		                        	<form:errors path="*" element="div" cssClass="alert alert-danger"/>
 		                        	<div class="form-group ${companyError}">
 		                        	    <div class="col-lg-12">
-			                        		<a href="${pageContext.request.contextPath}/selectCompany" class="btn btn-primary">Select Company</a>
+		                        	    	<c:if test="${empty invoice.invoiceId}">
+			                        			<a href="${pageContext.request.contextPath}/selectCompany/invoice" class="btn btn-primary">Select Company</a>
+			                        		</c:if>	
 			                        		<form:errors path="companyId" cssClass="control-label"/>
 		                        		</div>
 		                        		
@@ -71,7 +79,9 @@
 									<div class="form-group ${customerError}">				                    	
 				                    	<div class="col-lg-12">
 				                    		<br>
-			                        		<a href="${pageContext.request.contextPath}/selectCustomer" class="btn btn-primary">Select Customer</a>
+				                    		<c:if test="${empty invoice.invoiceId}">
+			                        			<a href="${pageContext.request.contextPath}/selectCustomer/invoice" class="btn btn-primary">Select Customer</a>
+		                        			</c:if>
 			                        		<form:errors path="customerId" cssClass="control-label"/>
 		                        		</div>
 
@@ -106,8 +116,10 @@
 											<div class="col-lg-3">
 												<label class="control-label">Invoice Date</label>
 						                        <div class="input-group date" id="invoiceDate">
-						                            <form:input path="invoiceDate" name="invoiceDate" type="text" class="form-control"/>
-						                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar" style="color:white"></i></span>
+						                            <form:input path="invoiceDate" name="invoiceDate" type="text" class="form-control" readonly="${readOnly}"/>
+						                            <c:if test="${empty invoice.invoiceId}">
+						                            	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar" style="color:white"></i></span>
+					                            	</c:if>
 						                        </div>
 			                            		<form:errors path="invoiceDate" cssClass="control-label"/>
 					                        </div>
@@ -121,7 +133,7 @@
 		                    	    <div class="col-lg-3">
 		                    	    	<div class="form-group ${fpaError}">
 			                    	    	<label class="control-label">FPA</label>
-			                    	    	<form:input type="number" path="fpa" class="form-control" placeholder="FPA" min="0" step="0.01"/>
+			                    	    	<form:input type="number" path="fpa" class="form-control" placeholder="FPA" min="0" step="0.01" readonly="${readOnly}"/>
 			                    	    	<form:errors path="fpa" cssClass="control-label"/>
 		                    	    	</div>
 		                    	    </div>
@@ -129,14 +141,16 @@
 		                    	    <div class="col-lg-3">
 		                    	    	<div class="form-group ${withHoldingError}">
 			                    	        <label class="control-label">Withholding</label>
-			                    	    	<form:input type="number" path="withHolding" class="form-control" placeholder="Withholding"  min="0" step="0.01"/>
+			                    	    	<form:input type="number" path="withHolding" class="form-control" placeholder="Withholding"  min="0" step="0.01" readonly="${readOnly}"/>
 		   		                 	    	<form:errors path="withHolding" cssClass="control-label"/>
 		                    	    	</div>
 		                    	    </div>
 									<div class="col-lg-12">
 										<br>
 										<h2><b>Invoice Details</b></h2>
-										<input type="submit" name="addNewLine" class="btn btn-default" value="Add New Line"/>
+										<c:if test="${empty invoice.invoiceId}">
+											<input type="submit" name="addNewLine" class="btn btn-default" value="Add New Line"/>
+										</c:if>	
 									</div>	
 				                    	
 			                    	<div class="col-lg-12">
@@ -148,22 +162,36 @@
 					                                <th style="width:10%">Line No</th>
 					                                <th style="width:70%">Description</th>
 					                                <th style="width:15%">Net Amount</th>
-					                                <th style="width:5%">Remove</th>
+					                                <c:if test="${empty invoice.invoiceId}">
+					                                	<th style="width:5%">Remove</th>
+				                                	</c:if>
 					                            </tr>
 					                            </thead>
 				                                <tbody>
 				                                	<c:forEach var="invoiceLine" items="${invoice.invoiceLines }" varStatus="status">
 				                                	    <tr class="gradeA">
 				                                	    	<td>
-				                                            	<input type="number" name="invoiceLines[${status.index}].lineId" value="${invoiceLine.lineId}"/>
+				                                            	<input type="number" name="invoiceLines[${status.index}].lineId" value="${invoiceLine.lineId}" readonly/>
 			                                	    		</td>
 				                                            <td>
-                              	             	 	    		<textarea name="invoiceLines[${status.index}].description" style="width:100%">${invoiceLine.description}</textarea>
+				                                            	<c:if test="${empty invoice.invoiceId}">
+                              	             	 	    			<textarea name="invoiceLines[${status.index}].description" style="width:100%">${invoiceLine.description}</textarea>
+                              	             	 	    		</c:if>	
+                              	             	 	    		<c:if test="${not empty invoice.invoiceId}">
+                              	             	 	    			<textarea name="invoiceLines[${status.index}].description" style="width:100%" readonly>${invoiceLine.description}</textarea>
+                              	             	 	    		</c:if>	
 				                                            </td>
 				                                            <td>
-	                           	             	 	    		<input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}" />
+				                                            	<c:if test="${empty invoice.invoiceId}">
+	                           	             	 	    			<input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}"/>
+	                           	             	 	    		</c:if>
+	                           	             	 	    		<c:if test="${not empty invoice.invoiceId}">	
+	                           	             	 	    			<input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}" readonly/>
+	                           	             	 	    		</c:if>	
 			                                            	</td>
-                           									<td><input type="submit" name="removeLine" class="btn btn-danger" value="${invoiceLine.lineId}"/></td>
+			                                            	<c:if test="${empty invoice.invoiceId}">
+                           										<td><input type="submit" name="removeLine" class="btn btn-danger" value="${invoiceLine.lineId}"/></td>
+                       										</c:if>
 				                                        </tr>
 				                                    </c:forEach>
 				                                    <c:if test="${invoice.withHoldingString != null}">
@@ -204,8 +232,10 @@
 					                	<br>
 					                </div> 
 			                    	<div class="col-lg-3">
-			                    		<input type="submit" name="calculate" class="btn btn-primary" value="Calculate"/>
-			                    		<input type="submit" name="saveAndPrint" class="btn btn-primary" value="Save & Print"/>
+			                    		<c:if test="${empty invoice.invoiceId}">
+				                    		<input type="submit" name="calculate" class="btn btn-primary" value="Calculate"/>
+				                    		<input type="submit" name="saveAndPrint" class="btn btn-primary" value="Save & Print"/>
+			                    		</c:if>
 			                    	</div>
 		                    	</form:form>
 	                    	</div>
@@ -220,12 +250,14 @@
     <!-- /#wrapper -->
 
   <commons:footer/>
-  <script>
-	$('#invoiceDate').datepicker({
-		format: "dd/mm/yyyy",
-		autoclose: true 
-	});
-  </script>
+  <c:if test="${empty invoice.invoiceId}">
+	 <script>
+		$('#invoiceDate').datepicker({
+			format: "dd/mm/yyyy",
+			autoclose: true 
+		});
+	  </script>
+  </c:if>
 </body>
 
 

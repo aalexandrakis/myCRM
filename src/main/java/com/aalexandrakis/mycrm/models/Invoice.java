@@ -2,13 +2,13 @@ package com.aalexandrakis.mycrm.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.aalexandrakis.mycrm.validators.Percent;
@@ -84,6 +85,15 @@ public class Invoice implements Serializable{
 	
 	@Column(name="words")
 	private String words;
+	
+	@Transient
+	private String invoiceDateString;
+	
+	@Transient 
+	private String dateFrom;
+	
+	@Transient 
+	private String dateTo;
 	
 	public Invoice(){
 		this.withHolding = new BigDecimal("20.00");
@@ -207,7 +217,7 @@ public class Invoice implements Serializable{
 	}
 
 	public Date getInvoiceDate() {
-		return invoiceDate;
+		return this.invoiceDate;
 	}
 
 	public void setInvoiceDate(Date invoiceDate) {
@@ -230,6 +240,34 @@ public class Invoice implements Serializable{
 
 	public void setWords(String words) {
 		this.words = words;
+	}
+
+	
+	public String getInvoiceDateString() {
+		SimpleDateFormat new_df = new SimpleDateFormat("dd-MM-yyyy");
+		this.invoiceDateString = new_df.format(this.invoiceDate);
+		return this.invoiceDateString;
+	}
+
+	public void setInvoiceDateString(String invoiceDateString) {
+		this.invoiceDateString = invoiceDateString;
+	}
+
+	
+	public String getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public String getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(String dateTo) {
+		this.dateTo = dateTo;
 	}
 
 	public void addNewLine(){
@@ -436,7 +474,7 @@ public class Invoice implements Serializable{
 		}
 		
 		
-		System.out.println(grossInWords);
+//		System.out.println(grossInWords);
 		
 		return grossInWords;
 	}

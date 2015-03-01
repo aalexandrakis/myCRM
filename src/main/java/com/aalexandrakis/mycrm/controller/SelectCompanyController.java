@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +17,8 @@ import com.aalexandrakis.mycrm.models.CompanyInfo;
 @Controller
 public class SelectCompanyController{
 
-	@RequestMapping("/selectCompany")
-	protected ModelAndView selectCompany(CompanyInfo companyInfo) {
+	@RequestMapping("/selectCompany/{target}")
+	protected ModelAndView selectCompany(CompanyInfo companyInfo, @PathVariable String target ) {
 		ModelAndView model = new ModelAndView("selectCompany");
 		model.addObject("invoiceActive", "active");
 		try {
@@ -31,8 +32,8 @@ public class SelectCompanyController{
 		return model;
 	}
 
-	@RequestMapping(value = "/selectCompany", method = RequestMethod.POST)
-	protected ModelAndView customers(CompanyInfo companyInfo, BindingResult result) {
+	@RequestMapping(value = "/selectCompany/{target}", method = RequestMethod.POST)
+	protected ModelAndView customers(CompanyInfo companyInfo, @PathVariable String target, BindingResult result) {
 		Map<String, String> parms = new HashMap<String, String>();
 		if (companyInfo.getName() != null && !companyInfo.getName().isEmpty()){
 			parms.put("name", companyInfo.getName());

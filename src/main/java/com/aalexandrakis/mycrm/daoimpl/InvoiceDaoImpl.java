@@ -2,10 +2,14 @@ package com.aalexandrakis.mycrm.daoimpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.aalexandrakis.mycrm.models.CompanyInfo;
+import com.aalexandrakis.mycrm.models.Customer;
 import com.aalexandrakis.mycrm.models.Invoice;
 import com.aalexandrakis.mycrm.models.InvoiceLine;
 import com.aalexandrakis.mycrm.util.HibernateUtil;
@@ -24,6 +28,64 @@ public class InvoiceDaoImpl {
 				invoiceLine.setInvoiceId(invoiceId);
 				session.save(invoiceLine);
 			}
+		} catch (Exception e){
+			session.getTransaction().rollback();
+			throw e;
+		} finally {
+			session.getTransaction().commit();
+			session.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Invoice> getInvoices(Map<String, Object> parms){
+		String query = "from Invoice";
+		if (parms != null){
+			int i = 0;
+			for (String key : parms.keySet()){
+				if (key.endsWith("Id")){
+					if (i==0){
+						query += " where ";
+					} else {
+						query += " and ";
+					}
+					query += key + " = " + parms.get(key);
+					i++;
+				}
+			}
+			if (parms.containsKey("dateFrom") && parms.containsKey("dateTo")){
+				if (i==0){
+					query += " where ";
+				} else {
+					query += " and ";
+				}
+				query += "invoiceDate between '" + parms.get("dateFrom") + "' and '" + parms.get("dateTo") + "'";
+			}
+		}
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		List<Invoice> invoiceList = session.createQuery(query).list();
+		
+		for (Invoice invoice : invoiceList){
+			invoice.setCustomer((Customer) session.get(Customer.class, invoice.getCustomerId()));
+			invoice.setCompanyInfo((CompanyInfo) session.get(CompanyInfo.class, invoice.getCompanyId()));
+		}
+		
+		session.getTransaction().commit();
+		session.close();
+		return invoiceList;
+	}
+	
+	public static Invoice getInvoice(Integer invoiceId) throws Exception {
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.openSession();
+		try{
+			session.beginTransaction();
+			Invoice invoice = (Invoice) session.get(Invoice.class, invoiceId);
+			invoice.setCompanyInfo((CompanyInfo) session.get(CompanyInfo.class, invoice.getCompanyId()));
+			invoice.setCustomer((Customer) session.get(Customer.class, invoice.getCustomerId()));
+			return invoice;
 		} catch (Exception e){
 			session.getTransaction().rollback();
 			throw e;

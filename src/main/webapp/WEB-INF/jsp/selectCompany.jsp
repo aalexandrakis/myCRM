@@ -26,7 +26,7 @@
 		                <!-- /.panel-heading -->
 		                <div class="panel-body ">
 		                	 <div class="row">
-			                        <form:form modelAttribute="companyInfo" action="${pageContext.request.contextPath}/selectCompany" method="POST">
+			                        <form:form modelAttribute="companyInfo" action="${pageContext.request.contextPath}/selectCompany/${target}" method="POST">
 			                        	<form:errors path="*" element="div" cssClass="alert alert-danger"/>
 		                        	    <div class="col-lg-3">
 					                        <div class="input-group custom-search-form">
@@ -66,8 +66,8 @@
 		                                <tbody>
 		                                	<c:forEach var="companyInfo" items="${companiesInfo }">
 		                                	    <tr class="gradeA">
-		                                            <td><a href="${pageContext.request.contextPath}/invoice/company/${companyInfo.companyId}">${companyInfo.companyId}</a></td>
-		                                            <td><a href="${pageContext.request.contextPath}/invoice/company/${companyInfo.companyId}">${companyInfo.name}</a></td>
+		                                            <td><a href="${pageContext.request.contextPath}/${target}/company/${companyInfo.companyId}">${companyInfo.companyId}</a></td>
+		                                            <td><a href="${pageContext.request.contextPath}/${target}/company/${companyInfo.companyId}">${companyInfo.name}</a></td>
 		                                            <td>${companyInfo.busDesc}</td>
 		                                            <td>${companyInfo.workPhone}</td>
 		                                            <td>${companyInfo.afm}</td>

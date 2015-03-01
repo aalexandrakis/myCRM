@@ -26,7 +26,7 @@
 		                <!-- /.panel-heading -->
 		                <div class="panel-body ">
 		                	<div class="row">
-			                        <form:form modelAttribute="customer" action="${pageContext.request.contextPath}/selectCustomer" method="POST">
+			                        <form:form modelAttribute="customer" action="${pageContext.request.contextPath}/selectCustomer/${target }" method="POST">
 			                        	<form:errors path="*" element="div" cssClass="alert alert-danger"/>
 		                        	    <div class="col-lg-3">
 					                        <div class="input-group custom-search-form">
@@ -66,8 +66,8 @@
 		                                <tbody>
 		                                	<c:forEach var="customer" items="${customers }">
 		                                	    <tr class="gradeA">
-		                                            <td><a href="${pageContext.request.contextPath}/invoice/customer/${customer.customerId}">${customer.customerId}</a></td>
-		                                            <td><a href="${pageContext.request.contextPath}/invoice/customer/${customer.customerId}">${customer.customerName}</a></td>
+		                                            <td><a href="${pageContext.request.contextPath}/${target}/customer/${customer.customerId}">${customer.customerId}</a></td>
+		                                            <td><a href="${pageContext.request.contextPath}/${target}/customer/${customer.customerId}">${customer.customerName}</a></td>
 		                                            <td>${customer.customerBusDesc}</td>
 		                                            <td>${customer.customerPhone}</td>
 		                                            <td>${customer.customerAfm}</td>

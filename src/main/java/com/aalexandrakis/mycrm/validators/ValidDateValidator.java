@@ -11,7 +11,6 @@ public class ValidDateValidator implements ConstraintValidator<ValidDate, Date>{
 	private String format;
 	public void initialize(ValidDate arg0) {
 		format = arg0.format();
-		System.out.println("Format " + format);
 	}
 
 	public boolean isValid(Date dateToValidate, ConstraintValidatorContext arg1) {
@@ -21,7 +20,7 @@ public class ValidDateValidator implements ConstraintValidator<ValidDate, Date>{
 		}
 		DateFormat df = new SimpleDateFormat(format);
 		try {
-			System.out.println(df.format(dateToValidate));
+			df.format(dateToValidate);
 			return true;
 		} catch (Exception e){
 			return false;
