@@ -80,27 +80,27 @@ public class InvoiceController{
 	
 
 	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "addNewLine")
-	protected ModelAndView addNewLine(HttpServletRequest request, HttpServletResponse response, Invoice invoice){
-//		System.out.println("Invoice Date " + invoice.getInvoiceDate());
-//		if (invoice.getInvoiceDate() != null){
-//			try {
-//			System.out.println("Invoice date " + df.format(invoice.getInvoiceDate()));
-//			System.out.println("Invoice Date " + df.parse(df.format(invoice.getInvoiceDate())));
-//			
-//			invoice.setInvoiceDate(df.parse(invoice.getInvoiceDate().toString()));
-//			} catch (Exception e){
-//				e.printStackTrace();
-//			}
-//		}
-//		System.out.println("Invoice Date " + invoice.getInvoiceDate());
-		this.invoice.addNewLine();
-		return new ModelAndView("redirect:/invoice");
+	protected ModelAndView addNewLine(HttpServletRequest request, HttpServletResponse response, Invoice invoice, BindingResult result){
+		ModelAndView model = new ModelAndView("invoiceForm");
+		
+		model.addObject("invoiceActive", "active");
+		checkErrors(model, result);
+		invoice.addNewLine();
+		model.addObject("invoice", invoice);
+		model.addObject("readOnly", "false");
+		return model;
 	}
 
 	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "removeLine")
-	protected ModelAndView removeLine(HttpServletRequest request, HttpServletResponse response, Invoice invoice, @RequestParam("removeLine") String lineId){
-		this.invoice.removeLine(Integer.valueOf(lineId));
-		return new ModelAndView("redirect:/invoice", "readOnly", "false");
+	protected ModelAndView removeLine(HttpServletRequest request, HttpServletResponse response, Invoice invoice, @RequestParam("removeLine") String lineId, BindingResult result){
+		ModelAndView model = new ModelAndView("invoiceForm");
+		
+		model.addObject("invoiceActive", "active");
+		checkErrors(model, result);
+		invoice.removeLine(Integer.valueOf(lineId));
+		model.addObject("invoice", invoice);
+		model.addObject("readOnly", "false");
+		return model;
 	}
 
 	@RequestMapping(value = "/invoice", method = RequestMethod.GET)

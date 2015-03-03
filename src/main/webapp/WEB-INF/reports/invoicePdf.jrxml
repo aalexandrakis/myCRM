@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
-<!-- 2015-02-28T10:58:27 -->
+<!-- 2015-03-04T01:40:51 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="myCrmAdapter"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -472,7 +472,9 @@ WHERE invoiceId = $P!{invoiceId}]]>
 									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
-								<textElement textAlignment="Center"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Serif"/>
+								</textElement>
 								<text><![CDATA[Περιγραφή]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -500,7 +502,9 @@ WHERE invoiceId = $P!{invoiceId}]]>
 									<leftPen lineWidth="1.0"/>
 									<rightPen lineWidth="1.0"/>
 								</box>
-								<textElement textAlignment="Center"/>
+								<textElement textAlignment="Center">
+									<font fontName="DejaVu Serif"/>
+								</textElement>
 								<text><![CDATA[Ποσό]]></text>
 							</staticText>
 						</jr:columnHeader>
