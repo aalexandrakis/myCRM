@@ -44,7 +44,7 @@ public class InvoiceController{
 	
 	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "saveAndPrint")
 	protected ModelAndView invoicePost(@Valid Invoice invoice, BindingResult result) {
-		ModelAndView model = new ModelAndView("invoice");
+		ModelAndView model = new ModelAndView("invoiceForm");
 		model.addObject("invoiceActive", "active");
 		model.addObject("readOnly", "false");
 		checkErrors(model, result);
@@ -68,7 +68,7 @@ public class InvoiceController{
 	
 	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "calculate")
 	protected ModelAndView calculate(@Valid Invoice invoice, BindingResult result) {
-		ModelAndView model = new ModelAndView("invoice");
+		ModelAndView model = new ModelAndView("invoiceForm");
 		
 		model.addObject("invoiceActive", "active");
 		checkErrors(model, result);
@@ -106,7 +106,7 @@ public class InvoiceController{
 	@RequestMapping(value = "/invoice", method = RequestMethod.GET)
 	protected ModelAndView invoiceGet(HttpServletRequest request, HttpServletResponse response, Invoice invoice) {
 //		System.out.println(invoice.getInvoiceDate());
-		ModelAndView model = new ModelAndView("invoice");
+		ModelAndView model = new ModelAndView("invoiceForm");
 		model.addObject("readOnly", "false");
 		model.addObject("invoiceActive", "active");
 		if (this.invoice != null){
