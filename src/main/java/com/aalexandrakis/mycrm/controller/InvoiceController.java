@@ -24,7 +24,6 @@ import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.CustomerDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.InvoiceDaoImpl;
 import com.aalexandrakis.mycrm.models.Invoice;
-
 @Controller
 public class InvoiceController{
 	
@@ -42,6 +41,7 @@ public class InvoiceController{
 		binder.registerCustomEditor(Date.class,  "invoiceDate", new CustomDateEditor(df, false));
 	}
 	
+	
 	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "saveAndPrint")
 	protected ModelAndView invoicePost(@Valid Invoice invoice, BindingResult result) {
 		ModelAndView model = new ModelAndView("invoice");
@@ -52,8 +52,7 @@ public class InvoiceController{
 		if (!result.hasErrors()){
 			try {
 				InvoiceDaoImpl.saveInvoice(invoice);
-				invoice = null;
-				return model;
+				return new ModelAndView("redirect:/invoicePdf/" + invoice.getInvoiceId());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
@@ -66,6 +65,7 @@ public class InvoiceController{
 			return model;
 		}
 	}
+	
 	@RequestMapping(value = "/invoice", method = RequestMethod.POST, params = "calculate")
 	protected ModelAndView calculate(@Valid Invoice invoice, BindingResult result) {
 		ModelAndView model = new ModelAndView("invoice");
@@ -161,18 +161,21 @@ public class InvoiceController{
 
 	}
 	
-	@RequestMapping(value="/invoice/{invoiceId}")
-	protected ModelAndView getInvoice(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer invoiceId){
-		ModelAndView model = new ModelAndView("invoice");
-		Invoice invoice = null;
-		try {
-			invoice = InvoiceDaoImpl.getInvoice(invoiceId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		model.addObject("invoice", invoice);
-		model.addObject("readOnly", "true");
-		return model;
-	}
+//	@RequestMapping(value="/invoice/{invoiceId}")
+//	protected ModelAndView getInvoice(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer invoiceId){
+//		ModelAndView model = new ModelAndView("invoice");
+//		Invoice invoice = null;
+//		try {
+//			invoice = InvoiceDaoImpl.getInvoice(invoiceId);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		model.addObject("invoice", invoice);
+//		model.addObject("readOnly", "true");
+//		return model;
+//	}
+	
+
+
 }

@@ -236,6 +236,9 @@
 				                    		<input type="submit" name="calculate" class="btn btn-primary" value="Calculate"/>
 				                    		<input type="submit" name="saveAndPrint" class="btn btn-primary" value="Save & Print"/>
 			                    		</c:if>
+			                    		<c:if test="${not empty invoice.invoiceId}">
+				                    		<a href="${pageContext.request.contextPath}/invoicePrint/${invoice.invoiceId}" class="btn btn-primary">Print</a>
+				                    	</c:if>
 			                    	</div>
 		                    	</form:form>
 	                    	</div>

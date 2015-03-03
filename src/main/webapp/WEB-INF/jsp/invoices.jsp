@@ -102,7 +102,7 @@
 		                                <tbody>
 		                                	<c:forEach var="invoice" items="${invoices }">
 		                                	    <tr class="gradeA">
-		                                            <td><a href="${pageContext.request.contextPath}/invoice/${invoice.invoiceId}">${invoice.invoiceId}</a></td>
+		                                            <td><a href="${pageContext.request.contextPath}/invoicePdf/${invoice.invoiceId}">${invoice.invoiceId}</a></td>
 		                                            <td>${invoice.invoiceDateString}</td>
 		                                            <td>${invoice.companyInfo.name }</td>
 		                                            <td>${invoice.customer.customerName }</td>

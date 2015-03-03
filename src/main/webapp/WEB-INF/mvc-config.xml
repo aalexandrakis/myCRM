@@ -12,7 +12,16 @@
 
 	    <mvc:annotation-driven />
 		<mvc:default-servlet-handler />
-			
+		
+		<bean id="pdfViewer" class="org.springframework.web.servlet.view.XmlViewResolver">
+			<property name="location">
+				<value>/WEB-INF/pdfviews.xml</value>
+			</property>
+			<property name="order">
+				<value>0</value>
+			</property>
+		</bean>
+		
 		<bean id="viewResolver"
 			  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 			<property name="prefix">
@@ -21,14 +30,19 @@
 			<property name="suffix">
 				<value>.jsp</value>
 			</property>
+			<property name="order">
+				<value>1</value>
+			</property>
 		</bean>
+		
+		
 		
 		<bean id="messageSource"
 			class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 			<property name="basename" value="/WEB-INF/properties/errorMessages"/>
 		</bean>
 		
-		<bean id="invoice"
+	    <bean id="invoice"
 	    	class="com.aalexandrakis.mycrm.models.Invoice">
 		</bean>
 		
