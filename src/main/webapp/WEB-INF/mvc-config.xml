@@ -22,6 +22,10 @@
 	    	class="com.aalexandrakis.mycrm.models.Invoice">
 		</bean> 
 		
+	     <bean id="outcome"
+	    	class="com.aalexandrakis.mycrm.models.Outcome">
+		</bean> 
+		
 		<bean id="pdfViewer" class="org.springframework.web.servlet.view.XmlViewResolver">
 			<property name="location">
 				<value>/WEB-INF/pdfviews.xml</value>
