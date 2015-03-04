@@ -22,6 +22,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.aalexandrakis.mycrm.validators.Percent;
 import com.aalexandrakis.mycrm.validators.ValidDate;
@@ -49,28 +51,28 @@ public class Invoice implements Serializable{
 	@Transient
 	private Customer customer;
 	 
-	@Column(name="amount")
+	@Column(name="amount") @NumberFormat(style=Style.CURRENCY)
 	private BigDecimal amount;
 	
-	@Percent @Column(name="fpa")
+	@Percent @Column(name="fpa") @NumberFormat(pattern="##0.00")
 	private BigDecimal fpa;
 	
-	@Column(name="fpaAmount")
+	@Column(name="fpaAmount") @NumberFormat(style=Style.CURRENCY)
 	private BigDecimal fpaAmount;
 	
-	@Column(name="taxis")
+	@Column(name="taxis") @NumberFormat(pattern="##0.00")
 	private BigDecimal taxis;
 	
-	@Column(name="gross")
+	@Column(name="gross") @NumberFormat(style=Style.CURRENCY)
 	private BigDecimal gross;
 	
-	@Percent @Column(name="withHolding")
+	@Percent @Column(name="withHolding") @NumberFormat(pattern="##0.00")
 	private BigDecimal withHolding;
 	
-	@Column(name="withHoldingAmount")
+	@Column(name="withHoldingAmount") @NumberFormat(style=Style.CURRENCY)
 	private BigDecimal withHoldingAmount;
 	
-	@Column(name="receivedAmount")
+	@Column(name="receivedAmount") @NumberFormat(style=Style.CURRENCY)
 	private BigDecimal receivedAmount;
 	
 	@ValidDate(format="dd/MM/yyyy") @DateTimeFormat(pattern="dd/MM/yyyy") @Column(name="invoiceDate")

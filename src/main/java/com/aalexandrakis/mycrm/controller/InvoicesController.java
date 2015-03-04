@@ -67,11 +67,11 @@ public class InvoicesController{
 			System.out.println("Could not parse date");
 		}
 		
-		if (invoice.getCustomer() != null){
+		if (invoice.getCustomer() != null && invoice.getCustomerId() != null){
 			parms.put("customerId", invoice.getCustomer().getCustomerId());
 		}
 
-		if (invoice.getCompanyInfo() != null){
+		if (invoice.getCompanyInfo() != null && invoice.getCompanyId() != null){
 			parms.put("companyId", invoice.getCompanyInfo().getCompanyId());
 		}
 		List<Invoice> invoices = null;

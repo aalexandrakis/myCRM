@@ -63,8 +63,6 @@ public class OutcomeController{
 			try {
 				outcome.calculate();
 				OutcomeDaoImpl.saveOutcome(outcome);
-//				return new ModelAndView("redirect:/invoicePdf/" + invoice.getInvoiceId());
-				outcome = null;
 				model.addObject("outcome", outcome);
 				return model;
 			} catch (Exception e) {

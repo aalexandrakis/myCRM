@@ -18,21 +18,31 @@ public class OutcomeDaoImpl {
 	public static final DateFormat df = new SimpleDateFormat("yyyyMMdd");
 	
 	public static void saveOutcome(Outcome outcome) throws Exception {
+		boolean isNew = outcome.getOutcomeId() == null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
 		Session session = sessionFactory.openSession();
 		try{
 			session.beginTransaction();
-			session.save(outcome);
+			if (isNew){
+				session.save(outcome);
+			} else {
+				session.update(outcome);
+			}
 			Integer outcomeId = outcome.getOutcomeId();
 			for (OutcomeLine outcomeLine : outcome.getOutcomeLines()){
+				System.out.println(" Save Line ");
 				outcomeLine.setOutcomeId(outcomeId);
-				session.save(outcomeLine);
+				if (isNew){
+					session.merge(outcomeLine);
+				} else {
+					session.update(outcomeLine);
+				}
 			}
+			session.getTransaction().commit();
 		} catch (Exception e){
 			session.getTransaction().rollback();
 			throw e;
 		} finally {
-			session.getTransaction().commit();
 			session.close();
 		}
 	}

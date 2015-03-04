@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 @Entity
 @Table(name="invoiceDetails")
@@ -23,12 +24,16 @@ public class InvoiceLine implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private Integer id;
+	
 	@Column(name="invoiceId")
 	private Integer invoiceId;
 	@NotBlank @Column(name="description")
 	private String description;
 	
-	@NumberFormat(pattern = "###,###,##0.00") @Column(name="net")
+	@NumberFormat(style=Style.CURRENCY) @Column(name="net")
 	private BigDecimal net;
 	
 	@Column(name="lineId")
@@ -81,6 +86,15 @@ public class InvoiceLine implements Serializable{
 
 	public void setLineId(int lineId) {
 		this.lineId = lineId;
+	}
+
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Invoice getInvoice() {

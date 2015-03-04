@@ -33,7 +33,7 @@
 		                <div class="panel-body ">
 		                	<div class="row">
 		                        <form:form modelAttribute="outcome" action="${pageContext.request.contextPath}/outcome" method="POST">
-		                        	<form:errors path="*" element="div" cssClass="alert alert-danger"/>
+		                        	<form:errors element="div" cssClass="alert alert-danger"/>
 		                        	<div class="form-group ${companyError}">
 		                        	    <div class="col-lg-12">
 		                        	    	<c:if test="${empty outcome.outcomeId}">
@@ -117,9 +117,7 @@
 												<label class="control-label">Outcome Date</label>
 						                        <div class="input-group date" id="outcomeDate">
 						                            <form:input path="outcomeDate" name="outcomeDate" type="text" class="form-control"/>
-						                            <c:if test="${empty outcome.outcomeId}">
-						                            	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar" style="color:white"></i></span>
-					                            	</c:if>
+					                            	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar" style="color:white"></i></span>
 						                        </div>
 			                            		<form:errors path="outcomeDate" cssClass="control-label"/>
 					                        </div>
@@ -137,9 +135,7 @@
 									<div class="col-lg-12">
 										<br>
 										<h2><b>Outcome Invoice Details</b></h2>
-										<c:if test="${empty outcome.outcomeId}">
-											<input type="submit" name="addNewLine" class="btn btn-default" value="Add New Line"/>
-										</c:if>	
+										<input type="submit" name="addNewLine" class="btn btn-default" value="Add New Line"/>
 									</div>	
 				                    	
 			                    	<div class="col-lg-12">
@@ -152,9 +148,7 @@
 					                                <th style="width:70%">Description</th>
 					                                <th style="width:15%">Fpa</th>
 					                                <th style="width:15%">Net Amount</th>
-					                                <c:if test="${empty outcome.outcomeId}">
-					                                	<th style="width:5%">Remove</th>
-				                                	</c:if>
+				                                	<th style="width:5%">Remove</th>
 					                            </tr>
 					                            </thead>
 				                                <tbody>
@@ -167,10 +161,10 @@
                               	             	 	    			<textarea name="outcomeLines[${status.index}].description" style="width:100%">${outcomeLine.description}</textarea>
 				                                            </td>
 				                                            <td>
-                              	             	 	    			<input type="number" name="outcomeLines[${status.index}].fpa" value="${outcomeLine.fpa}"></input>
+                              	             	 	    			<input type="text" name="outcomeLines[${status.index}].fpa" value="${outcomeLine.fpa}"></input>
 				                                            </td>
 				                                            <td>
-	                           	             	 	    			<input name="outcomeLines[${status.index}].net" type="number" pattern="###,##0.00" step="0.01" value="${outcomeLine.net}"/>
+	                           	             	 	    			<input name="outcomeLines[${status.index}].net" type="text" value="${outcomeLine.net}"/>
 			                                            	</td>
                            									<td>
                            										<input type="submit" name="removeLine" class="btn btn-danger" value="${outcomeLine.lineId}"/>
@@ -180,17 +174,17 @@
 							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>Summary</b></td>
-			                                            <td><form:input path="amount" type="number" readonly="true" pattern="###,##0.00"/></td>
+			                                            <td><form:input type="text" path="amount" readonly="true" pattern="###,##0.00" step="0.01"/></td>
 			                                        </tr>
 							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>FPA</b></td>
-			                                            <td><form:input type="number" path="fpaAmount" readonly="true" pattern="###,##0.00"/></td>
+			                                            <td><form:input type="text" path="fpaAmount" readonly="true" pattern="###,##0.00" step="0.01"/></td>
 			                                        </tr>    
 							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>Gross</b></td>
-			                                            <td><form:input type="number" path="gross" readonly="true" pattern="###,##0.00"/></td>
+			                                            <td><form:input type="text" path="gross" readonly="true" pattern="###,##0.00" step="0.01"/></td>
 			                                        </tr>    
 			                                    </tbody>
 					                        </table>

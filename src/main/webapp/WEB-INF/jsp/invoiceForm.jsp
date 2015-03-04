@@ -133,7 +133,7 @@
 		                    	    <div class="col-lg-3">
 		                    	    	<div class="form-group ${fpaError}">
 			                    	    	<label class="control-label">FPA</label>
-			                    	    	<form:input type="number" path="fpa" class="form-control" placeholder="FPA" min="0" step="0.01" readonly="${readOnly}"/>
+			                    	    	<form:input type="text" path="fpa" class="form-control" placeholder="FPA" readonly="${readOnly}"/>
 			                    	    	<form:errors path="fpa" cssClass="control-label"/>
 		                    	    	</div>
 		                    	    </div>
@@ -141,7 +141,7 @@
 		                    	    <div class="col-lg-3">
 		                    	    	<div class="form-group ${withHoldingError}">
 			                    	        <label class="control-label">Withholding</label>
-			                    	    	<form:input type="number" path="withHolding" class="form-control" placeholder="Withholding"  min="0" step="0.01" readonly="${readOnly}"/>
+			                    	    	<form:input type="text" path="withHolding" class="form-control" placeholder="Withholding"  readonly="${readOnly}"/>
 		   		                 	    	<form:errors path="withHolding" cssClass="control-label"/>
 		                    	    	</div>
 		                    	    </div>
@@ -183,10 +183,10 @@
 				                                            </td>
 				                                            <td>
 				                                            	<c:if test="${empty invoice.invoiceId}">
-	                           	             	 	    			<input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}"/>
+	                           	             	 	    			<input name="invoiceLines[${status.index}].net" type="text" value="${invoiceLine.net}"/>
 	                           	             	 	    		</c:if>
 	                           	             	 	    		<c:if test="${not empty invoice.invoiceId}">	
-	                           	             	 	    			<input name="invoiceLines[${status.index}].net" type="number" pattern="###,##0,00" value="${invoiceLine.net}" readonly/>
+	                           	             	 	    			<input name="invoiceLines[${status.index}].net" type="text" value="${invoiceLine.net}" readonly/>
 	                           	             	 	    		</c:if>	
 			                                            	</td>
 			                                            	<c:if test="${empty invoice.invoiceId}">
@@ -210,17 +210,17 @@
 							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>Summary</b></td>
-			                                            <td><form:input path="amount" type="number" readonly="true"/></td>
+			                                            <td><form:input path="amount" type="text" readonly="true"/></td>
 			                                        </tr>
 							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>FPA</b></td>
-			                                            <td><form:input type="number" path="fpaAmount" readonly="true"/></td>
+			                                            <td><form:input type="text" path="fpaAmount" readonly="true"/></td>
 			                                        </tr>    
 							                 	    <tr class="gradeA">
 			                                            <td></td>
 			                                            <td style="text-align:right"><b>Gross</b></td>
-			                                            <td><form:input type="number" path="gross" readonly="true"/></td>
+			                                            <td><form:input type="text" path="gross" readonly="true"/></td>
 			                                        </tr>    
 			                                    </tbody>
 					                        </table>

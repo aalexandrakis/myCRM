@@ -67,11 +67,11 @@ public class OutcomesController{
 			System.out.println("Could not parse date");
 		}
 		
-		if (outcome.getSupplier() != null){
+		if (outcome.getSupplier() != null && outcome.getSupplierId() != null ){
 			parms.put("supplierId", outcome.getSupplier().getSupplierId());
 		}
 
-		if (outcome.getCompanyInfo() != null){
+		if (outcome.getCompanyInfo() != null && outcome.getCompanyId() != null){
 			parms.put("companyId", outcome.getCompanyInfo().getCompanyId());
 		}
 		List<Outcome> outcomes = null;

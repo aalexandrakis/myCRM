@@ -28,11 +28,11 @@ public class InvoiceDaoImpl {
 				invoiceLine.setInvoiceId(invoiceId);
 				session.save(invoiceLine);
 			}
+			session.getTransaction().commit();
 		} catch (Exception e){
 			session.getTransaction().rollback();
 			throw e;
 		} finally {
-			session.getTransaction().commit();
 			session.close();
 		}
 	}

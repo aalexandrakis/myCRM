@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
-<!-- 2015-03-04T01:40:51 -->
+<!-- 2015-03-05T00:39:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="myCrmAdapter"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -450,7 +450,7 @@ WHERE invoiceId = $P!{invoiceId}]]>
 		</band>
 	</title>
 	<detail>
-		<band height="106">
+		<band height="75">
 			<componentElement>
 				<reportElement x="3" y="4" width="550" height="60" uuid="6829d791-1be9-4fc2-92d4-1399d84afadc">
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -522,8 +522,10 @@ WHERE invoiceId = $P!{invoiceId}]]>
 					</jr:column>
 				</jr:table>
 			</componentElement>
+		</band>
+		<band height="50">
 			<textField>
-				<reportElement x="0" y="70" width="450" height="30" uuid="2e23625b-9251-45ba-a738-90d35c543aba"/>
+				<reportElement x="2" y="10" width="450" height="30" uuid="2e23625b-9251-45ba-a738-90d35c543aba"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>

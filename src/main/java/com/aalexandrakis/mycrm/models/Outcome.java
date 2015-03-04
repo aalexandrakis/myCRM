@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.aalexandrakis.mycrm.validators.ValidDate;
 @Entity
@@ -48,13 +49,13 @@ public class Outcome implements Serializable{
 	@Transient
 	private Supplier supplier;
 	 
-	@Column(name="amount") @NumberFormat(pattern = "###,##0.00")
+	@Column(name="amount") @NumberFormat(style=Style.CURRENCY)
 	private BigDecimal amount;
 	
-	@Column(name="fpaAmount") @NumberFormat(pattern = "###,##0.00")
+	@Column(name="fpaAmount") @NumberFormat(style=Style.CURRENCY) 
 	private BigDecimal fpaAmount;
 	
-	@Column(name="gross") @NumberFormat(pattern = "###,##0.00")
+	@Column(name="gross") @NumberFormat(style=Style.CURRENCY)
 	private BigDecimal gross;
 	
 	@ValidDate(format="dd/MM/yyyy") @DateTimeFormat(pattern="dd/MM/yyyy") @Column(name="outcomeDate")
@@ -224,7 +225,6 @@ public class Outcome implements Serializable{
 		this.gross = BigDecimal.ZERO;
 		this.fpaAmount = BigDecimal.ZERO;
 		this.amount = BigDecimal.ZERO;
-		
 		if (this.outcomeLines != null){
 			for (OutcomeLine line : this.outcomeLines){
 				if (line.getNet() != null && !line.getNet().equals(BigDecimal.ZERO)){
