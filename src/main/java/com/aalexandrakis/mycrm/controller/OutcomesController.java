@@ -1,5 +1,6 @@
 package com.aalexandrakis.mycrm.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -77,7 +78,19 @@ public class OutcomesController{
 		List<Outcome> outcomes = null;
 		if (!checkErrors(model, result)){
 			outcomes = OutcomeDaoImpl.getOutcomes(parms);
+			BigDecimal amountSummary = BigDecimal.ZERO;
+			BigDecimal fpaAmountSummary = BigDecimal.ZERO;
+			BigDecimal grossSummary = BigDecimal.ZERO;
+			for (Outcome outc : outcomes){
+				amountSummary = amountSummary.add(outc.getAmount());
+				fpaAmountSummary = fpaAmountSummary.add(outc.getFpaAmount());
+				grossSummary = grossSummary.add(outc.getGross());
+			}
+			model.addObject("amountSummary", amountSummary);
+			model.addObject("fpaAmountSummary", fpaAmountSummary);
+			model.addObject("grossSummary", grossSummary);
 		}
+		
 		model.addObject("outcomes", outcomes);
 		return model;
 	}

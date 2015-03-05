@@ -100,19 +100,30 @@
 		                                <th>Σύνολο</th>
 		                            </tr>
 		                            </thead>
-		                                <tbody>
-		                                	<c:forEach var="invoice" items="${invoices }">
-		                                	    <tr class="gradeA">
-		                                            <td><a href="${pageContext.request.contextPath}/invoicePdf/${invoice.invoiceId}">${invoice.invoiceId}</a></td>
-		                                            <td>${invoice.invoiceDateString}</td>
-		                                            <td>${invoice.companyInfo.name }</td>
-		                                            <td>${invoice.customer.customerName }</td>
-		                                            <td>${invoice.amount}</td>
-		                                            <td>${invoice.fpaAmount}</td>
-		                                            <td>${invoice.gross}</td>
-		                                        </tr>
-		                                    </c:forEach>    
-	                                    </tbody>
+	                                <tbody>
+	                                	<c:forEach var="invoice" items="${invoices }">
+	                                	    <tr class="gradeA">
+	                                            <td><a href="${pageContext.request.contextPath}/invoicePdf/${invoice.invoiceId}">${invoice.invoiceId}</a></td>
+	                                            <td>${invoice.invoiceDateString}</td>
+	                                            <td>${invoice.companyInfo.name }</td>
+	                                            <td>${invoice.customer.customerName }</td>
+	                                            <td>${invoice.amount}</td>
+	                                            <td>${invoice.fpaAmount}</td>
+	                                            <td>${invoice.gross}</td>
+	                                        </tr>
+	                                    </c:forEach>    
+                                    </tbody>
+                                    <tfoot>
+	                                    <tr class="gradeA">
+	                                        <td></td>
+	                                        <td></td>
+	                                        <td></td>
+	                                        <td><b>Σύνολο:</b></td>
+	                                        <td>${amountSummary}</td>
+	                                        <td>${fpaAmountSummary}</td>
+	                                        <td>${grossSummary}</td>
+	                                    </tr>
+                                    </tfoot>
 		                        </table>
 		                    </div>
 		                </div>

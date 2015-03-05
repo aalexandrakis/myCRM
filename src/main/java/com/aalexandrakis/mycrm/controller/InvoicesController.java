@@ -1,5 +1,6 @@
 package com.aalexandrakis.mycrm.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -88,6 +89,17 @@ public class InvoicesController{
 		List<Invoice> invoices = null;
 		if (!checkErrors(model, result)){
 			invoices = InvoiceDaoImpl.getInvoices(parms);
+			BigDecimal amountSummary = BigDecimal.ZERO;
+			BigDecimal fpaAmountSummary = BigDecimal.ZERO;
+			BigDecimal grossSummary = BigDecimal.ZERO;
+			for (Invoice invc : invoices){
+				amountSummary = amountSummary.add(invc.getAmount());
+				fpaAmountSummary = fpaAmountSummary.add(invc.getFpaAmount());
+				grossSummary = grossSummary.add(invc.getGross());
+			}
+			model.addObject("amountSummary", amountSummary);
+			model.addObject("fpaAmountSummary", fpaAmountSummary);
+			model.addObject("grossSummary", grossSummary);
 		}
 		model.addObject("invoices", invoices);
 		return model;

@@ -101,20 +101,32 @@
 		                                <th>Σύνολο</th>
 		                            </tr>
 		                            </thead>
-		                                <tbody>
-		                                	<c:forEach var="outcome" items="${outcomes}">
-		                                	    <tr class="gradeA">
-		                                            <td><a href="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}">${outcome.outcomeId}</a></td>
-		                                            <td><a href="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}">${outcome.outcomeNumber}</a></td>
-		                                            <td>${outcome.outcomeDateString}</td>
-		                                            <td>${outcome.companyInfo.name }</td>
-		                                            <td>${outcome.supplier.supplierName }</td>
-		                                            <td>${outcome.amount}</td>
-		                                            <td>${outcome.fpaAmount}</td>
-		                                            <td>${outcome.gross}</td>
-		                                        </tr>
-		                                    </c:forEach>    
-	                                    </tbody>
+	                                <tbody>
+	                                	<c:forEach var="outcome" items="${outcomes}">
+	                                	    <tr class="gradeA">
+	                                            <td><a href="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}">${outcome.outcomeId}</a></td>
+	                                            <td><a href="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}">${outcome.outcomeNumber}</a></td>
+	                                            <td>${outcome.outcomeDateString}</td>
+	                                            <td>${outcome.companyInfo.name }</td>
+	                                            <td>${outcome.supplier.supplierName }</td>
+	                                            <td>${outcome.amount}</td>
+	                                            <td>${outcome.fpaAmount}</td>
+	                                            <td>${outcome.gross}</td>
+	                                        </tr>
+	                                    </c:forEach>    
+                                    </tbody>
+                                    <tfoot>
+	                                    <tr class="gradeA">
+	                                        <td></td>
+	                                        <td></td>
+	                                        <td></td>
+	                                        <td></td>
+	                                        <td><b>Σύνολο:</b></td>
+	                                        <td>${amountSummary}</td>
+	                                        <td>${fpaAmountSummary}</td>
+	                                        <td>${grossSummary}</td>
+	                                    </tr>
+                                    </tfoot>
 		                        </table>
 		                    </div>
 		                </div>
