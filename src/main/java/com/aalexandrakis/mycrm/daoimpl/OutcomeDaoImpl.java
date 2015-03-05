@@ -21,30 +21,26 @@ public class OutcomeDaoImpl {
 	public static final DateFormat df = new SimpleDateFormat("yyyyMMdd");
 	
 	public static Outcome saveOutcome(Outcome outcome, MultipartFile file) throws Exception {
-		boolean isNew = outcome.getOutcomeId() == null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
 		Session session = sessionFactory.openSession();
 		try{
 			Blob blob = Hibernate.getLobCreator(session).createBlob(file.getInputStream(), file.getSize());
-			 
-            outcome.setFileName(file.getOriginalFilename());
-            outcome.setOutcomeFile(blob);
-            outcome.setFileType(file.getContentType());
-
-			session.beginTransaction();
-			if (isNew){
-				session.save(outcome);
+			if (!file.isEmpty()){
+	            outcome.setFileName(file.getOriginalFilename());
+	            outcome.setOutcomeFile(blob);
+	            outcome.setFileType(file.getContentType());
 			} else {
-				session.update(outcome);
-			}
+				Outcome outcomeOld = getOutcome(outcome.getOutcomeId());
+				outcome.setFileName(outcomeOld.getFileName());
+	            outcome.setOutcomeFile(outcomeOld.getOutcomeFile());
+	            outcome.setFileType(outcomeOld.getFileType());
+			}			
+			session.beginTransaction();
+			session.saveOrUpdate(outcome);
 			Integer outcomeId = outcome.getOutcomeId();
 			for (OutcomeLine outcomeLine : outcome.getOutcomeLines()){
 				outcomeLine.setOutcomeId(outcomeId);
-				if (isNew){
-					session.merge(outcomeLine);
-				} else {
-					session.update(outcomeLine);
-				}
+				session.saveOrUpdate(outcomeLine);
 			}
 			session.getTransaction().commit();
 			return outcome;

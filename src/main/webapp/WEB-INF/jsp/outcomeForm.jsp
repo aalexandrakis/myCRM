@@ -33,6 +33,7 @@
 		                <div class="panel-body ">
 		                	<div class="row">
 		                        <form:form modelAttribute="outcome" action="${pageContext.request.contextPath}/outcome" enctype="multipart/form-data" method="POST">
+		                        	<form:input type="hidden" path="outcomeId"/>
 		                        	<form:errors element="div" cssClass="alert alert-danger"/>
 		                        	<div class="form-group ${companyError}">
 		                        	    <div class="col-lg-12">
@@ -111,9 +112,9 @@
 				                           <form:input type="text" path="supplier.supplierPhone" class="form-control" placeholder="Phone" readonly="true"/>
 				                    	</div>
 									</div>
-									<div class="form-group ${outcomeDateError }" style="margin-left:-12px">
-										<div class="col-lg-12">
-											<div class="col-lg-3">
+									<div class="col-lg-12">								
+										<div class="col-lg-3">
+											<div class="form-group ${outcomeDateError }" >
 												<label class="control-label">Outcome Date</label>
 						                        <div class="input-group date" id="outcomeDate">
 						                            <form:input path="outcomeDate" name="outcomeDate" type="text" class="form-control"/>
@@ -122,23 +123,29 @@
 			                            		<form:errors path="outcomeDate" cssClass="control-label"/>
 					                        </div>
 										</div>
+										
+										<div class="col-lg-3">
+			                    	    	<div class="form-group ${outcomeNumberError}">
+				                    	    	<label class="control-label">Number</label>
+				                    	    	<form:input type="text" path="outcomeNumber" class="form-control" placeholder="Number"/>
+				                    	    	<form:errors path="outcomeNumber" cssClass="control-label"/>
+			                    	    	</div>
+			                    	    </div>
+										
+										<div class="col-lg-3">
+			                    	    	<div class="form-group ${selectFileError}">
+				                    	    	<label class="control-label">Outcome Invoice File ${outcome.fileName }</label>
+				                    	    	<input type="file" name="file" />
+			                    	    	</div>
+		                    	    	</div>
+		                    	    	
+		                    	    	<c:if test="${not empty outcome.fileName}">
+			                    	    	<div class="col-lg-3">
+			                    	    		<object data="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}" type="${outcome.fileType}" width="200" height="200">
+												</object>				
+			                    	    	</div>
+		                    	    	</c:if>
 									</div>
-									
-									<div class="col-lg-3">
-		                    	    	<div class="form-group ${outcomeNumberError}">
-			                    	    	<label class="control-label">Number</label>
-			                    	    	<form:input type="text" path="outcomeNumber" class="form-control" placeholder="Number"/>
-			                    	    	<form:errors path="outcomeNumber" cssClass="control-label"/>
-		                    	    	</div>
-		                    	    </div>
-									
-									<div class="col-lg-6">
-		                    	    	<div class="form-group ${selectFileError}">
-			                    	    	<label class="control-label">Outcome Invoice File</label>
-			                    	    	<input type="file" name="file" />
-		                    	    	</div>
-		                    	    </div>
-		                    	    
 									<div class="col-lg-12">
 										<br>
 										<h2><b>Outcome Invoice Details</b></h2>
@@ -162,6 +169,7 @@
 				                                	<c:forEach var="outcomeLine" items="${outcome.outcomeLines}" varStatus="status">
 				                                	    <tr class="gradeA">
 				                                	    	<td>
+				                                	    		<input type="hidden" name="outcomeLines[${status.index}].id" value="${outcomeLine.id}"/>
 				                                            	<input type="number" name="outcomeLines[${status.index}].lineId" value="${outcomeLine.lineId}" readonly/>
 			                                	    		</td>
 				                                            <td>

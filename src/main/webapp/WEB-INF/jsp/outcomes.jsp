@@ -78,7 +78,7 @@
 										   <div class="col-lg-12"  style="margin-left:12px">
 										   	  <br>
 				                    		  <input type="submit" class="btn btn-primary" name="search" value="Seacrh"/>
-				                    		  <a href="${pageContext.request.contextPath}/outcome" class="btn btn-primary">New Outcome Invoice</a>
+				                    		  <a href="${pageContext.request.contextPath}/outcome/new" class="btn btn-primary">New Outcome Invoice</a>
 				                    		  <input type="submit" class="btn btn-primary" name="clear" value="Clear Filters"/>
 			                    	       </div>
 			                    	   </form:form>
@@ -92,7 +92,8 @@
 		                            <thead>
 		                            <tr>
 		                                <th>Α/A.</th>
-		                                <th>Σ/Α</th>
+		                                <th>Σειρά/Αριθμός</th>
+		                                <th>Αρχείο</th>
 		                                <th>Ημερομηνία</th>
 		                                <th>Εταιρεία</th>
 		                                <th>Προμηθευτής</th>
@@ -106,6 +107,7 @@
 	                                	    <tr class="gradeA">
 	                                            <td><a href="${pageContext.request.contextPath}/outcome/${outcome.outcomeId}">${outcome.outcomeId}</a></td>
 	                                            <td><a href="${pageContext.request.contextPath}/outcome/${outcome.outcomeId}">${outcome.outcomeNumber}</a></td>
+	                                            <td><a href="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}">${outcome.fileName}</a></td>
 	                                            <td>${outcome.outcomeDateString}</td>
 	                                            <td>${outcome.companyInfo.name }</td>
 	                                            <td>${outcome.supplier.supplierName }</td>
@@ -117,6 +119,7 @@
                                     </tbody>
                                     <tfoot>
 	                                    <tr class="gradeA">
+	                                        <td></td>
 	                                        <td></td>
 	                                        <td></td>
 	                                        <td></td>

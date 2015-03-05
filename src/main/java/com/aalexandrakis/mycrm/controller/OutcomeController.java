@@ -1,5 +1,6 @@
 package com.aalexandrakis.mycrm.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
@@ -120,6 +122,17 @@ public class OutcomeController{
 		return model;
 	}
 
+	@RequestMapping(value = "/outcome/new", method = RequestMethod.GET)
+	protected ModelAndView newOutcome(HttpServletRequest request, HttpServletResponse response, Outcome outcome) {
+		ModelAndView model = new ModelAndView("outcomeForm");
+		model.addObject("readOnly", "false");
+		model.addObject("outcomeActive", "active");
+		outcome = new Outcome();
+		this.outcome = outcome;
+		model.addObject("outcome", outcome);
+		return model;
+	}
+
 	@RequestMapping("/outcome/company/{companyId}")
 	protected ModelAndView outcomeCompany(HttpServletRequest request, HttpServletResponse response,  @PathVariable int companyId) {
 		this.outcome.setCompanyId(companyId);
@@ -156,6 +169,20 @@ public class OutcomeController{
 		}
 	
 
+	@RequestMapping(value = "/outcomePdf/{outcomeId}" , method = RequestMethod.GET)
+	protected HttpServletResponse outcomePdf(HttpServletRequest request, HttpServletResponse response,  @PathVariable Integer outcomeId) throws IOException {
+			try {
+				this.outcome = OutcomeDaoImpl.getOutcome(outcomeId);
+				response.setContentType(outcome.getFileType());
+				IOUtils.copy(outcome.getOutcomeFile().getBinaryStream(), response.getOutputStream());
+				response.getOutputStream().close();
+				return response;
+			} catch (Exception e){
+				e.printStackTrace();
+				response.sendError(500, e.getMessage());
+				return response;
+			}
+	}
 	
 	private void checkErrors(ModelAndView model, BindingResult result){
 		if (result.hasFieldErrors("companyId")){
