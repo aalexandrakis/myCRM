@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -63,6 +64,16 @@ public class Outcome implements Serializable{
 	
 	@NotBlank @Column(name="outcomeNumber")
 	private String outcomeNumber;
+
+	@Column(name="outcomeFile")
+	@Lob
+	private java.sql.Blob outcomeFile;
+	
+	@Column(name="fileType")
+	private String fileType;
+	
+	@Column(name="fileName")
+	private String fileName;
 	
 	@OneToMany(mappedBy="outcome", fetch = FetchType.EAGER)
 	private List<OutcomeLine> outcomeLines;
@@ -171,8 +182,33 @@ public class Outcome implements Serializable{
 	public void setOutcomeDateString(String outcomeDateString) {
 		this.outcomeDateString = outcomeDateString;
 	}
+	
+	public java.sql.Blob getOutcomeFile() {
+		return outcomeFile;
+	}
+
+	public void setOutcomeFile(java.sql.Blob outcomeFile) {
+		this.outcomeFile = outcomeFile;
+	}
 
 	
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public String getDateFrom() {
 		return dateFrom;
 	}

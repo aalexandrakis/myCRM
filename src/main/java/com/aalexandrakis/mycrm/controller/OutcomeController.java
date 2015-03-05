@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
@@ -54,7 +55,7 @@ public class OutcomeController{
 	}
 
 	@RequestMapping(value = "/outcome", method = RequestMethod.POST, params = "save")
-	protected ModelAndView outcomePost(@Valid Outcome outcome, BindingResult result) {
+	protected ModelAndView outcomePost(@Valid Outcome outcome, @RequestParam("file") MultipartFile file, BindingResult result) {
 		ModelAndView model = new ModelAndView("outcomeForm");
 		model.addObject("outcomeActive", "active");
 		model.addObject("readOnly", "false");
@@ -62,7 +63,7 @@ public class OutcomeController{
 		if (!result.hasErrors()){
 			try {
 				outcome.calculate();
-				OutcomeDaoImpl.saveOutcome(outcome);
+				outcome = OutcomeDaoImpl.saveOutcome(outcome, file);
 				model.addObject("outcome", outcome);
 				return model;
 			} catch (Exception e) {
@@ -155,6 +156,7 @@ public class OutcomeController{
 		}
 	
 
+	
 	private void checkErrors(ModelAndView model, BindingResult result){
 		if (result.hasFieldErrors("companyId")){
 			model.addObject("companyError", "has-error");

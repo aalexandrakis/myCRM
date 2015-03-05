@@ -1,12 +1,15 @@
 package com.aalexandrakis.mycrm.daoimpl;
 
+import java.sql.Blob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aalexandrakis.mycrm.models.CompanyInfo;
 import com.aalexandrakis.mycrm.models.Outcome;
@@ -17,11 +20,17 @@ import com.aalexandrakis.mycrm.util.HibernateUtil;
 public class OutcomeDaoImpl {
 	public static final DateFormat df = new SimpleDateFormat("yyyyMMdd");
 	
-	public static void saveOutcome(Outcome outcome) throws Exception {
+	public static Outcome saveOutcome(Outcome outcome, MultipartFile file) throws Exception {
 		boolean isNew = outcome.getOutcomeId() == null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
 		Session session = sessionFactory.openSession();
 		try{
+			Blob blob = Hibernate.getLobCreator(session).createBlob(file.getInputStream(), file.getSize());
+			 
+            outcome.setFileName(file.getOriginalFilename());
+            outcome.setOutcomeFile(blob);
+            outcome.setFileType(file.getContentType());
+
 			session.beginTransaction();
 			if (isNew){
 				session.save(outcome);
@@ -38,6 +47,7 @@ public class OutcomeDaoImpl {
 				}
 			}
 			session.getTransaction().commit();
+			return outcome;
 		} catch (Exception e){
 			session.getTransaction().rollback();
 			throw e;

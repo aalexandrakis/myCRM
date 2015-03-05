@@ -32,7 +32,7 @@
 		                <!-- /.panel-heading -->
 		                <div class="panel-body ">
 		                	<div class="row">
-		                        <form:form modelAttribute="outcome" action="${pageContext.request.contextPath}/outcome" method="POST">
+		                        <form:form modelAttribute="outcome" action="${pageContext.request.contextPath}/outcome" enctype="multipart/form-data" method="POST">
 		                        	<form:errors element="div" cssClass="alert alert-danger"/>
 		                        	<div class="form-group ${companyError}">
 		                        	    <div class="col-lg-12">
@@ -132,6 +132,13 @@
 		                    	    	</div>
 		                    	    </div>
 									
+									<div class="col-lg-6">
+		                    	    	<div class="form-group ${selectFileError}">
+			                    	    	<label class="control-label">Outcome Invoice File</label>
+			                    	    	<input type="file" name="file" />
+		                    	    	</div>
+		                    	    </div>
+		                    	    
 									<div class="col-lg-12">
 										<br>
 										<h2><b>Outcome Invoice Details</b></h2>
