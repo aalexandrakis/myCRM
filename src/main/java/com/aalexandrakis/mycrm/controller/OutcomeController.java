@@ -142,6 +142,19 @@ public class OutcomeController{
 		return new ModelAndView("redirect:/outcome");
 	}
 
+	@RequestMapping("/outcome/{outcomeId}")
+	protected ModelAndView outcomeById(HttpServletRequest request, HttpServletResponse response,  @PathVariable Integer outcomeId) {
+			try {
+				this.outcome = OutcomeDaoImpl.getOutcome(outcomeId);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			ModelAndView model = new ModelAndView("outcomeForm");
+			model.addObject("outcome", outcome);
+			return model;
+		}
+	
+
 	private void checkErrors(ModelAndView model, BindingResult result){
 		if (result.hasFieldErrors("companyId")){
 			model.addObject("companyError", "has-error");

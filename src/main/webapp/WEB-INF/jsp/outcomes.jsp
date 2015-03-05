@@ -104,8 +104,8 @@
 	                                <tbody>
 	                                	<c:forEach var="outcome" items="${outcomes}">
 	                                	    <tr class="gradeA">
-	                                            <td><a href="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}">${outcome.outcomeId}</a></td>
-	                                            <td><a href="${pageContext.request.contextPath}/outcomePdf/${outcome.outcomeId}">${outcome.outcomeNumber}</a></td>
+	                                            <td><a href="${pageContext.request.contextPath}/outcome/${outcome.outcomeId}">${outcome.outcomeId}</a></td>
+	                                            <td><a href="${pageContext.request.contextPath}/outcome/${outcome.outcomeId}">${outcome.outcomeNumber}</a></td>
 	                                            <td>${outcome.outcomeDateString}</td>
 	                                            <td>${outcome.companyInfo.name }</td>
 	                                            <td>${outcome.supplier.supplierName }</td>
