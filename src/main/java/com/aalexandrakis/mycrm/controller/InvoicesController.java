@@ -53,6 +53,17 @@ public class InvoicesController{
 		return model;
 	}
 
+	@RequestMapping(value = "/invoices", method = RequestMethod.POST, params = "clear")
+	protected ModelAndView clearFilters(HttpServletRequest request, HttpServletResponse response, @Valid Invoice invoice, BindingResult result) {
+		ModelAndView model = new ModelAndView("invoices");
+		model.addObject("invoiceActive", "active");
+		invoice.setCompanyInfo(null);
+		invoice.setCustomer(null);
+		model.addObject("invoice", invoice);
+		model.addObject("invoices", null);
+		return model;
+	}
+	
 	@RequestMapping(value = "/invoices", method = RequestMethod.POST, params = "search")
 	protected ModelAndView calculate(HttpServletRequest request, HttpServletResponse response, @Valid Invoice invoice, BindingResult result) {
 		ModelAndView model = new ModelAndView("invoices");
@@ -67,11 +78,11 @@ public class InvoicesController{
 			System.out.println("Could not parse date");
 		}
 		
-		if (invoice.getCustomer() != null && invoice.getCustomerId() != null){
+		if (invoice.getCustomer().getCustomerId() != null){
 			parms.put("customerId", invoice.getCustomer().getCustomerId());
 		}
 
-		if (invoice.getCompanyInfo() != null && invoice.getCompanyId() != null){
+		if (invoice.getCompanyInfo().getCompanyId() != null){
 			parms.put("companyId", invoice.getCompanyInfo().getCompanyId());
 		}
 		List<Invoice> invoices = null;

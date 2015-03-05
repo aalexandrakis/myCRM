@@ -30,7 +30,6 @@ public class OutcomeDaoImpl {
 			}
 			Integer outcomeId = outcome.getOutcomeId();
 			for (OutcomeLine outcomeLine : outcome.getOutcomeLines()){
-				System.out.println(" Save Line ");
 				outcomeLine.setOutcomeId(outcomeId);
 				if (isNew){
 					session.merge(outcomeLine);
@@ -72,6 +71,7 @@ public class OutcomeDaoImpl {
 				query += "outcomeDate between '" + parms.get("dateFrom") + "' and '" + parms.get("dateTo") + "'";
 			}
 		}
+		System.out.println(query);
 		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();

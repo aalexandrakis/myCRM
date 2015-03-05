@@ -79,6 +79,7 @@
 										   	  <br>
 				                    		  <input type="submit" class="btn btn-primary" name="search" value="Seacrh"/>
 				                    		  <a href="${pageContext.request.contextPath}/invoice" class="btn btn-primary">New Invoice</a>
+				                    		  <input type="submit" class="btn btn-primary" name="clear" value="Clear Filters"/>
 			                    	       </div>
 			                    	   </form:form>
 		                    	</div>

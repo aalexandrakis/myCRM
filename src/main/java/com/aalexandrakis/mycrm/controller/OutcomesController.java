@@ -67,11 +67,11 @@ public class OutcomesController{
 			System.out.println("Could not parse date");
 		}
 		
-		if (outcome.getSupplier() != null && outcome.getSupplierId() != null ){
+		if (outcome.getSupplier().getSupplierId() != null ){
 			parms.put("supplierId", outcome.getSupplier().getSupplierId());
 		}
 
-		if (outcome.getCompanyInfo() != null && outcome.getCompanyId() != null){
+		if (outcome.getCompanyInfo().getCompanyId() != null){
 			parms.put("companyId", outcome.getCompanyInfo().getCompanyId());
 		}
 		List<Outcome> outcomes = null;
@@ -81,7 +81,18 @@ public class OutcomesController{
 		model.addObject("outcomes", outcomes);
 		return model;
 	}
-	
+
+	@RequestMapping(value = "/outcomes", method = RequestMethod.POST, params = "clear")
+	protected ModelAndView clearFilters(HttpServletRequest request, HttpServletResponse response, @Valid Outcome outcome, BindingResult result) {
+		ModelAndView model = new ModelAndView("outcomes");
+		model.addObject("outcomeActive", "active");
+		outcome.setCompanyInfo(null);
+		outcome.setSupplier(null);
+		model.addObject("outcome", outcome);
+		model.addObject("outcomes", null);
+		return model;
+	}
+
 	@RequestMapping("/outcomes/company/{companyId}")
 	protected ModelAndView outcomeCompany(HttpServletRequest request, HttpServletResponse response,  @PathVariable int companyId) {
 		this.outcome.setCompanyId(companyId);
