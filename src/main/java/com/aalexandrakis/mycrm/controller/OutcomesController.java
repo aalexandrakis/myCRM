@@ -25,7 +25,6 @@ import com.aalexandrakis.mycrm.commons.Methods;
 import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.OutcomeDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.SupplierDaoImpl;
-import com.aalexandrakis.mycrm.models.Invoice;
 import com.aalexandrakis.mycrm.models.Outcome;
 
 @Controller
