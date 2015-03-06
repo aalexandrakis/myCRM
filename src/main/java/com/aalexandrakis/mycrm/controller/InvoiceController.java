@@ -142,6 +142,19 @@ public class InvoiceController{
 		return model;
 	}
 
+	@RequestMapping(value = "/invoice/new", method = RequestMethod.GET)
+	protected ModelAndView invoiceNew(HttpServletRequest request, HttpServletResponse response, Invoice invoice) {
+//		System.out.println(invoice.getInvoiceDate());
+		ModelAndView model = new ModelAndView("invoiceForm");
+		model.addObject("readOnly", "false");
+		model.addObject("invoiceActive", "active");
+		invoice = new Invoice();
+		this.invoice = invoice;
+		model.addObject("invoice", invoice);
+		return model;
+	}
+
+
 	@RequestMapping("/invoice/company/{companyId}")
 	protected ModelAndView invoiceCompany(HttpServletRequest request, HttpServletResponse response,  @PathVariable int companyId) {
 		this.invoice.setCompanyId(companyId);

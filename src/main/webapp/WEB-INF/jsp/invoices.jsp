@@ -78,7 +78,7 @@
 										   <div class="col-lg-12"  style="margin-left:12px">
 										   	  <br>
 				                    		  <input type="submit" class="btn btn-primary" name="search" value="Seacrh"/>
-				                    		  <a href="${pageContext.request.contextPath}/invoice" class="btn btn-primary">New Invoice</a>
+				                    		  <a href="${pageContext.request.contextPath}/invoice/new" class="btn btn-primary">New Invoice</a>
 				                    		  <input type="submit" class="btn btn-primary" name="clear" value="Clear Filters"/>
 			                    	       </div>
 			                    	   </form:form>
