@@ -1,16 +1,25 @@
 package com.aalexandrakis.mycrm.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aalexandrakis.mycrm.commons.Methods;
 import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.CustomerDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.InvoiceDaoImpl;
@@ -32,6 +42,9 @@ public class InvoiceController{
 	
 	@Autowired 
 	Invoice invoice;
+	
+	@Autowired
+	ServletContext servletContext;
 	
 	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -52,7 +65,17 @@ public class InvoiceController{
 		if (!result.hasErrors()){
 			try {
 				InvoiceDaoImpl.saveInvoice(invoice);
-				return new ModelAndView("redirect:/invoicePdf/" + invoice.getInvoiceId());
+				ModelMap parms = new ModelMap();
+			    parms.put("invoiceId", invoice.getInvoiceId().toString());
+		        
+			    System.out.println("test");
+			    System.out.println(servletContext.getRealPath("/WEB-INF/reports/invoicePdf.jasper"));
+	            JasperPrint jasperPrint = JasperFillManager.fillReport(servletContext.getRealPath("/WEB-INF/reports/invoicePdf.jasper"), parms, Methods.getConnection(System.getenv("MYCRM_DB_USERNAME"),System.getenv("MYCRM_DB_PASSWORD")));
+	            ByteArrayOutputStream os = new ByteArrayOutputStream();
+	            JasperExportManager.exportReportToPdfStream(jasperPrint, os);
+	            os.close();
+				InvoiceDaoImpl.saveInvoice(invoice, os);
+	            return new ModelAndView("redirect:/invoicePdf/" + invoice.getInvoiceId());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
@@ -161,6 +184,20 @@ public class InvoiceController{
 
 	}
 	
+	@RequestMapping(value = "/invoicePdf/{invoiceId}" , method = RequestMethod.GET)
+	protected HttpServletResponse outcomePdf(HttpServletRequest request, HttpServletResponse response,  @PathVariable Integer invoiceId) throws IOException {
+			try {
+				this.invoice = InvoiceDaoImpl.getInvoice(invoiceId);
+				response.setContentType("application/pdf");
+				IOUtils.copy(invoice.getInvoiceFile().getBinaryStream(), response.getOutputStream());
+				response.getOutputStream().close();
+				return response;
+			} catch (Exception e){
+				e.printStackTrace();
+				response.sendError(500, e.getMessage());
+				return response;
+			}
+	}
 //	@RequestMapping(value="/invoice/{invoiceId}")
 //	protected ModelAndView getInvoice(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer invoiceId){
 //		ModelAndView model = new ModelAndView("invoice");

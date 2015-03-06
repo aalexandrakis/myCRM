@@ -1,10 +1,13 @@
 package com.aalexandrakis.mycrm.daoimpl;
 
+import java.io.ByteArrayOutputStream;
+import java.sql.Blob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -37,6 +40,24 @@ public class InvoiceDaoImpl {
 		}
 	}
 	
+	public static void saveInvoice(Invoice invoice, ByteArrayOutputStream os) throws Exception {
+		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+		Session session = sessionFactory.openSession();
+		try{
+			session.beginTransaction();
+			Blob blob = Hibernate.getLobCreator(session).createBlob(os.toByteArray());
+			if (os != null){
+	            invoice.setInvoiceFile(blob);
+			}		
+			session.update(invoice);
+			session.getTransaction().commit();
+		} catch (Exception e){
+			session.getTransaction().rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
 	@SuppressWarnings("unchecked")
 	public static List<Invoice> getInvoices(Map<String, Object> parms){
 		String query = "from Invoice";

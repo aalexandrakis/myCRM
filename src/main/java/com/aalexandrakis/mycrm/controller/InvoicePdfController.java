@@ -20,11 +20,11 @@ public class InvoicePdfController {
 	@Autowired 
 	Invoice invoice;
 	
-	@RequestMapping(value = "/invoicePdf/{invoiceId}", method = RequestMethod.GET)
-	protected ModelAndView  invoicePdf(HttpServletRequest request, HttpServletResponse respose, @PathVariable Integer invoiceId) {
-		ModelMap parms = new ModelMap();
-		parms.put("REPORT_CONNECTION", Methods.getConnection(System.getenv("MYCRM_DB_USERNAME"),System.getenv("MYCRM_DB_PASSWORD")));
-	    parms.put("invoiceId", invoiceId.toString());
-		return new ModelAndView("pdfInvoiceView", parms);
-	}
+//	@RequestMapping(value = "/invoicePdf/{invoiceId}", method = RequestMethod.GET)
+//	protected ModelAndView  invoicePdf(HttpServletRequest request, HttpServletResponse respose, @PathVariable Integer invoiceId) {
+//		ModelMap parms = new ModelMap();
+//		parms.put("REPORT_CONNECTION", Methods.getConnection(System.getenv("MYCRM_DB_USERNAME"),System.getenv("MYCRM_DB_PASSWORD")));
+//	    parms.put("invoiceId", invoiceId.toString());
+//		return new ModelAndView("pdfInvoiceView", parms);
+//	}
 }

@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -86,6 +87,10 @@ public class Invoice implements Serializable{
 	
 	@Column(name="words")
 	private String words;
+	
+	@Column(name="invoiceFile")
+	@Lob
+	private java.sql.Blob invoiceFile;
 	
 	@Transient
 	private String invoiceDateString;
@@ -269,6 +274,15 @@ public class Invoice implements Serializable{
 
 	public void setDateTo(String dateTo) {
 		this.dateTo = dateTo;
+	}
+
+	
+	public java.sql.Blob getInvoiceFile() {
+		return invoiceFile;
+	}
+
+	public void setInvoiceFile(java.sql.Blob invoiceFile) {
+		this.invoiceFile = invoiceFile;
 	}
 
 	public void addNewLine(){
