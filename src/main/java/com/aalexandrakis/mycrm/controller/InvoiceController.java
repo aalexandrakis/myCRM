@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +70,8 @@ public class InvoiceController{
 				ModelMap parms = new ModelMap();
 			    parms.put("invoiceId", invoice.getInvoiceId().toString());
 		        
-			    System.out.println("test");
-			    System.out.println(servletContext.getRealPath("/WEB-INF/reports/invoicePdf.jasper"));
-	            JasperPrint jasperPrint = JasperFillManager.fillReport(servletContext.getRealPath("/WEB-INF/reports/invoicePdf.jasper"), parms, Methods.getConnection(System.getenv("MYCRM_DB_USERNAME"),System.getenv("MYCRM_DB_PASSWORD")));
+			    JasperReport jasperReport = JasperCompileManager.compileReport(servletContext.getRealPath("/WEB-INF/reports/invoicePdf.jrxml"));
+	            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parms, Methods.getConnection(System.getenv("MYCRM_DB_USERNAME"),System.getenv("MYCRM_DB_PASSWORD")));
 	            ByteArrayOutputStream os = new ByteArrayOutputStream();
 	            JasperExportManager.exportReportToPdfStream(jasperPrint, os);
 	            os.close();

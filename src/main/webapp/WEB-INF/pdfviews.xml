@@ -3,8 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="pdfInvoiceView" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView">
-		<property name="url" value="/WEB-INF/reports/invoicePdf.jrxml"/>
+    <bean id="pdfIncomesView" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView">
+		<property name="url" value="/WEB-INF/reports/incomesPdf.jrxml"/>
 	</bean>
 
 </beans>

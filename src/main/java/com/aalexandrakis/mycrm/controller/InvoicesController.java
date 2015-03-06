@@ -1,6 +1,7 @@
 package com.aalexandrakis.mycrm.controller;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,12 +14,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aalexandrakis.mycrm.commons.Methods;
 import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.CustomerDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.InvoiceDaoImpl;
@@ -54,6 +57,16 @@ public class InvoicesController{
 		return model;
 	}
 
+	@RequestMapping(value = "/invoices", method = RequestMethod.POST, params = "print")
+	protected ModelAndView  invoicePdf(HttpServletRequest request, HttpServletResponse respose, Invoice invoice) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		ModelMap parms = new ModelMap();
+		parms.put("REPORT_CONNECTION", Methods.getConnection(System.getenv("MYCRM_DB_USERNAME"),System.getenv("MYCRM_DB_PASSWORD")));
+	    parms.put("dateFrom", df.parseObject(invoice.getDateFrom()));
+	    parms.put("dateTo", df.parseObject(invoice.getDateTo()));
+		return new ModelAndView("pdfIncomesView", parms);
+	}
+	
 	@RequestMapping(value = "/invoices", method = RequestMethod.POST, params = "clear")
 	protected ModelAndView clearFilters(HttpServletRequest request, HttpServletResponse response, @Valid Invoice invoice, BindingResult result) {
 		ModelAndView model = new ModelAndView("invoices");
