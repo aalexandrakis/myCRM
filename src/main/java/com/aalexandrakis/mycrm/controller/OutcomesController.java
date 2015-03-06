@@ -1,6 +1,7 @@
 package com.aalexandrakis.mycrm.controller;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,15 +14,18 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aalexandrakis.mycrm.commons.Methods;
 import com.aalexandrakis.mycrm.daoimpl.CompanyInfoDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.OutcomeDaoImpl;
 import com.aalexandrakis.mycrm.daoimpl.SupplierDaoImpl;
+import com.aalexandrakis.mycrm.models.Invoice;
 import com.aalexandrakis.mycrm.models.Outcome;
 
 @Controller
@@ -54,6 +58,16 @@ public class OutcomesController{
 		return model;
 	}
 
+	@RequestMapping(value = "/outcomes", method = RequestMethod.POST, params = "print")
+	protected ModelAndView  outcomePdf(HttpServletRequest request, HttpServletResponse respose, Outcome outcome) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		ModelMap parms = new ModelMap();
+		parms.put("REPORT_CONNECTION", Methods.getConnection(System.getenv("MYCRM_DB_USERNAME"),System.getenv("MYCRM_DB_PASSWORD")));
+	    parms.put("dateFrom", df.parseObject(outcome.getDateFrom()));
+	    parms.put("dateTo", df.parseObject(outcome.getDateTo()));
+		return new ModelAndView("pdfOutcomesView", parms);
+	}
+	
 	@RequestMapping(value = "/outcomes", method = RequestMethod.POST, params = "search")
 	protected ModelAndView calculate(HttpServletRequest request, HttpServletResponse response, @Valid Outcome outcome, BindingResult result) {
 		ModelAndView model = new ModelAndView("outcomes");

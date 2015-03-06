@@ -3,5 +3,6 @@ encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/reports/incomesPdf.jrxml=UTF-8
 encoding//src/main/webapp/WEB-INF/reports/invoicePdf.jrxml=UTF-8
+encoding//src/main/webapp/WEB-INF/reports/outcomesPdf.jrxml=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

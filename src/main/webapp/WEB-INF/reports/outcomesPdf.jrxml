@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
-<!-- 2015-03-06T21:09:25 -->
+<!-- 2015-03-06T21:18:26 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="incomes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="08844764-b51b-43e8-ab2a-c65e02b538fc">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="myCrmAdapter"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -271,56 +271,22 @@
 	<parameter name="dateFrom" class="java.util.Date"/>
 	<parameter name="dateTo" class="java.util.Date"/>
 	<queryString language="SQL">
-		<![CDATA[Select * from invoiceHeader i inner join companyInfo ci on i.companyId = ci.companyId inner join customers cu on i.customerId = cu.customerId 
-where invoiceDate between $P{dateFrom} and $P{dateTo}
-order by invoiceDate]]>
+		<![CDATA[Select * from outcomeHeader o inner join companyInfo ci on o.companyId = ci.companyId inner join suppliers su on o.supplierId = su.supplierId 
+where outcomeDate between $P{dateFrom} and $P{dateTo}
+order by outcomeDate]]>
 	</queryString>
-	<field name="invoiceId" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="companyId" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="customerId" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="amount" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="fpa" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="taxis" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="gross" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="withHolding" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="fpaAmount" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="withHoldingAmount" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="receivedAmount" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="invoiceDate" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="withHoldingString" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="words" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="invoiceFile" class="java.lang.Object">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="COLUMN_16" class="java.lang.Integer"/>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -345,23 +311,45 @@ order by invoiceDate]]>
 	<field name="email" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="COLUMN_25" class="java.lang.Integer"/>
-	<field name="customerName" class="java.lang.String">
+	<field name="outcomeId" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="customerBusDesc" class="java.lang.String">
+	<field name="supplierId" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="customerDoy" class="java.lang.String">
+	<field name="outcomeDate" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="customerAddress" class="java.lang.String">
+	<field name="outcomeNumber" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="customerAfm" class="java.lang.String">
+	<field name="outcomeFile" class="java.lang.Object">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="customerPhone" class="java.lang.String">
+	<field name="fileType" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fileName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLUMN_12" class="java.lang.Integer"/>
+	<field name="COLUMN_21" class="java.lang.Integer"/>
+	<field name="supplierName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="supplierBusDesc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="supplierDoy" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="supplierAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="supplierAfm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="supplierPhone" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="amount1" class="java.math.BigDecimal" resetType="Group" resetGroup="Group1" calculation="Sum">
@@ -440,24 +428,24 @@ order by invoiceDate]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="DejaVu Serif" size="26" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Τιμολόγια Παροχής Υπηρεσιών]]></text>
+				<text><![CDATA[Τιμολόγια Αγορών]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="252" y="46" width="40" height="18" uuid="45151441-835f-4991-bfc2-d42ece9ca819"/>
+				<reportElement x="276" y="46" width="40" height="18" uuid="45151441-835f-4991-bfc2-d42ece9ca819"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Από]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="390" y="45" width="32" height="18" uuid="94972322-dd7f-41b5-9ee6-8796099b0954"/>
+				<reportElement x="414" y="45" width="32" height="18" uuid="94972322-dd7f-41b5-9ee6-8796099b0954"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Έως]]></text>
 			</staticText>
 			<textField pattern="dd/MM/YYYY">
-				<reportElement x="297" y="46" width="92" height="18" uuid="4029eb06-4a31-4dfe-bba9-1e60a5ba5554">
+				<reportElement x="321" y="46" width="92" height="18" uuid="4029eb06-4a31-4dfe-bba9-1e60a5ba5554">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -467,7 +455,7 @@ order by invoiceDate]]>
 				<textFieldExpression><![CDATA[$P{dateFrom}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/YYYY">
-				<reportElement x="429" y="46" width="110" height="18" uuid="368f93bf-f5cc-43f8-b958-3650ee53cc83">
+				<reportElement x="453" y="46" width="110" height="18" uuid="368f93bf-f5cc-43f8-b958-3650ee53cc83">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -526,11 +514,13 @@ order by invoiceDate]]>
 				<text><![CDATA[Φ.Π.Α.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="162" y="0" width="336" height="30" uuid="f96e4e95-e628-493c-8b3e-c86c89bcdb5b"/>
+				<reportElement x="198" y="0" width="300" height="30" uuid="f96e4e95-e628-493c-8b3e-c86c89bcdb5b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Serif" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Πελάτης]]></text>
+				<text><![CDATA[Προμηθευτής]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="698" y="0" width="100" height="30" uuid="8dc1a73e-dfcf-4d79-a46c-582e7cce0c1b">
@@ -543,7 +533,7 @@ order by invoiceDate]]>
 				<text><![CDATA[Σύνολο]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="0" width="80" height="30" uuid="d3531da3-5622-4a03-a9b1-87c55df71c28"/>
+				<reportElement x="118" y="0" width="80" height="30" uuid="d3531da3-5622-4a03-a9b1-87c55df71c28"/>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Serif" isBold="true"/>
 				</textElement>
@@ -554,11 +544,11 @@ order by invoiceDate]]>
 	<detail>
 		<band height="40">
 			<textField>
-				<reportElement x="0" y="6" width="80" height="30" uuid="9e2d340f-22a8-423d-96a4-1cc9eed8bb83">
+				<reportElement x="0" y="6" width="118" height="30" uuid="9e2d340f-22a8-423d-96a4-1cc9eed8bb83">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{invoiceId}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{outcomeNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="499" y="6" width="100" height="30" uuid="7b7ad215-75cf-4b39-94d6-3e88a61348ed">
@@ -583,15 +573,18 @@ order by invoiceDate]]>
 				<textFieldExpression><![CDATA[$F{fpaAmount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="160" y="6" width="338" height="30" uuid="ba2c4be6-9f72-4c35-bd60-d1fb5bcb3a06"/>
+				<reportElement x="199" y="6" width="300" height="30" uuid="ba2c4be6-9f72-4c35-bd60-d1fb5bcb3a06">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{supplierName}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/YYYY">
-				<reportElement x="80" y="6" width="80" height="30" uuid="34421017-92bc-40b5-ad71-a96da5f62fc9"/>
-				<textFieldExpression><![CDATA[$F{invoiceDate}]]></textFieldExpression>
+				<reportElement x="119" y="6" width="80" height="30" uuid="34421017-92bc-40b5-ad71-a96da5f62fc9"/>
+				<textFieldExpression><![CDATA[$F{outcomeDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

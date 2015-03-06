@@ -6,5 +6,9 @@
     <bean id="pdfIncomesView" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView">
 		<property name="url" value="/WEB-INF/reports/incomesPdf.jrxml"/>
 	</bean>
+	
+    <bean id="pdfOutcomesView" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView">
+		<property name="url" value="/WEB-INF/reports/outcomesPdf.jrxml"/>
+	</bean>
 
 </beans>
