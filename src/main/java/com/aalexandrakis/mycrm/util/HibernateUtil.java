@@ -6,13 +6,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import com.aalexandrakis.mycrm.commons.Constants;
  
 public class HibernateUtil {
  
     //Annotation based configuration
     private static SessionFactory sessionAnnotationFactory;
-
-	
+    
     private  static SessionFactory buildSessionAnnotationFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
@@ -20,7 +21,8 @@ public class HibernateUtil {
             configuration.configure("hibernate-annotation.cfg.xml");
             Properties props = new Properties();
             props.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-            props.put("hibernate.connection.url", "jdbc:mysql://localhost:3306/myCrm?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8");
+//            props.put("hibernate.connection.url", "jdbc:mysql://localhost:3306/" + System.getenv("MYCRM_DB") + "?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8")
+            props.put("hibernate.connection.url", Constants.MYSQL_CONNECTION_STRING);
             props.put("hibernate.connection.username", System.getenv("MYCRM_DB_USERNAME"));
             props.put("hibernate.connection.password", System.getenv("MYCRM_DB_PASSWORD"));
             props.put("hibernate.current_session_context_class", "thread");
