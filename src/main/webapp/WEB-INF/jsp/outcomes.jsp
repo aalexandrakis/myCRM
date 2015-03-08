@@ -81,6 +81,7 @@
 				                    		  <a href="${pageContext.request.contextPath}/outcome/new" class="btn btn-primary">New Outcome Invoice</a>
 				                    		  <input type="submit" class="btn btn-primary" name="print" value="Print"/>
 				                    		  <input type="submit" class="btn btn-primary" name="clear" value="Clear Filters"/>
+				                    		  <input type="submit" class="btn btn-primary" name="downloadFiles" value="Download Files"/>
 			                    	       </div>
 			                    	   </form:form>
 		                    	</div>

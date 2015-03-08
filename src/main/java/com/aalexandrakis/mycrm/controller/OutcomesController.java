@@ -1,13 +1,17 @@
 package com.aalexandrakis.mycrm.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -57,6 +61,38 @@ public class OutcomesController{
 		return model;
 	}
 
+	@RequestMapping(value = "/outcomes" , method = RequestMethod.POST, params = "downloadFiles")
+	protected HttpServletResponse downloadFiles(HttpServletRequest request, HttpServletResponse response,  @Valid Outcome outcome, BindingResult result) throws IOException {
+			response.setContentType("application/zip");
+			response.setHeader("Content-Disposition","inline; filename=outcomes.zip;");
+			ServletOutputStream outputStream = response.getOutputStream();
+			
+			try {
+				List<Outcome> outcomes  = OutcomeDaoImpl.getOutcomes(getQueryParams());
+				ZipOutputStream zip = new ZipOutputStream(outputStream);
+				for (Outcome outcomeObject : outcomes){
+					zip.putNextEntry(new ZipEntry(outcomeObject.getFileName()));
+					byte[] b = new byte[1024];
+					int len;
+					InputStream inputStream = outcomeObject.getOutcomeFile().getBinaryStream();
+					while((len = inputStream.read(b)) != -1){
+						zip.write(b, 0, len);
+					}
+					zip.closeEntry();
+				}
+				zip.flush();
+				zip.close();
+
+				outputStream.flush();
+				return response;
+			} catch (Exception e){
+				e.printStackTrace();
+				response.sendError(500, e.getMessage());
+				return response;
+			}
+	}
+	
+
 	@RequestMapping(value = "/outcomes", method = RequestMethod.POST, params = "print")
 	protected ModelAndView  outcomePdf(HttpServletRequest request, HttpServletResponse respose, Outcome outcome) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -70,27 +106,10 @@ public class OutcomesController{
 	@RequestMapping(value = "/outcomes", method = RequestMethod.POST, params = "search")
 	protected ModelAndView calculate(HttpServletRequest request, HttpServletResponse response, @Valid Outcome outcome, BindingResult result) {
 		ModelAndView model = new ModelAndView("outcomes");
-		SimpleDateFormat old_df = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat new_df = new SimpleDateFormat("yyyy-MM-dd");
 		model.addObject("outcomeActive", "active");
-		Map<String, Object> parms = new HashMap<String, Object>();
-		try {
-			parms.put("dateFrom", new_df.format(old_df.parse(outcome.getDateFrom())));
-			parms.put("dateTo", new_df.format(old_df.parse(outcome.getDateTo())));
-		} catch (Exception e){
-			System.out.println("Could not parse date");
-		}
-		
-		if (outcome.getSupplier().getSupplierId() != null ){
-			parms.put("supplierId", outcome.getSupplier().getSupplierId());
-		}
-
-		if (outcome.getCompanyInfo().getCompanyId() != null){
-			parms.put("companyId", outcome.getCompanyInfo().getCompanyId());
-		}
 		List<Outcome> outcomes = null;
 		if (!checkErrors(model, result)){
-			outcomes = OutcomeDaoImpl.getOutcomes(parms);
+			outcomes = OutcomeDaoImpl.getOutcomes(getQueryParams());
 			BigDecimal amountSummary = BigDecimal.ZERO;
 			BigDecimal fpaAmountSummary = BigDecimal.ZERO;
 			BigDecimal grossSummary = BigDecimal.ZERO;
@@ -154,29 +173,27 @@ public class OutcomesController{
 		return hasErrors;
 	}
 	
-//	@RequestMapping(value = "/suppliers", method = RequestMethod.POST)
-//	protected ModelAndView suppliers(Supplier supplier, BindingResult result) {
-//		// TODO Auto-generated method stub
-//		Map<String, String> parms = new HashMap<String, String>();
-//		if (supplier.getSupplierName() != null && !supplier.getSupplierName().isEmpty()){
-//			parms.put("supplierName", supplier.getSupplierName());
-//		}
-//		if (supplier.getSupplierAfm() != null && !supplier.getSupplierAfm().isEmpty()){
-//			parms.put("supplierAfm", supplier.getSupplierAfm());
-//		}
-//		ModelAndView model = new ModelAndView("suppliers");
-//		model.addObject("supplierActive", "active");
-//
-//		try {
-//		List<Supplier> suppliers = SupplierDaoImpl.getSuppliers(parms);
-//		model.addObject("suppliers", suppliers);
-//		} catch (Exception e){
-//			result.reject("query.fail", e.getMessage());
-//			return model;
-//		}
-//		
-//		return model;
-//	}
+	private HashMap<String, Object> getQueryParams(){
+		SimpleDateFormat old_df = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat new_df = new SimpleDateFormat("yyyy-MM-dd");
+
+		HashMap<String, Object> parms = new HashMap<String, Object>();
+		try {
+			parms.put("dateFrom", new_df.format(old_df.parse(outcome.getDateFrom())));
+			parms.put("dateTo", new_df.format(old_df.parse(outcome.getDateTo())));
+		} catch (Exception e){
+			System.out.println("Could not parse date");
+		}
+		
+		if (outcome.getSupplier().getSupplierId() != null ){
+			parms.put("supplierId", outcome.getSupplier().getSupplierId());
+		}
+
+		if (outcome.getCompanyInfo().getCompanyId() != null){
+			parms.put("companyId", outcome.getCompanyInfo().getCompanyId());
+		}
+		return parms;
+	}
 
 
 }
