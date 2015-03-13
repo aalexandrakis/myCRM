@@ -25,6 +25,7 @@
         <mapping class="com.aalexandrakis.mycrm.models.InvoiceLine"/>
         <mapping class="com.aalexandrakis.mycrm.models.Outcome"/>
         <mapping class="com.aalexandrakis.mycrm.models.OutcomeLine"/>
+        <mapping class="com.aalexandrakis.mycrm.models.Payment"/>
         
     </session-factory>
 </hibernate-configuration>

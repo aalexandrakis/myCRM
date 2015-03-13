@@ -61,6 +61,9 @@
                         <li>
                             <a class="${outcomeActive }" href="${pageContext.request.contextPath}/outcomes">Outcomes</a>
                         </li>
+                        <li>
+                            <a class="${paymentActive }" href="${pageContext.request.contextPath}/payments">Payments</a>
+                        </li>
                         
                     </ul>
                 </div>

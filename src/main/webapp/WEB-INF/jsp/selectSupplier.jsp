@@ -68,11 +68,11 @@
 		                                	    <tr class="gradeA">
 		                                            <td><a href="${pageContext.request.contextPath}/${target}/supplier/${supplier.supplierId}">${supplier.supplierId}</a></td>
 		                                            <td><a href="${pageContext.request.contextPath}/${target}/supplier/${supplier.supplierId}">${supplier.supplierName}</a></td>
-		                                            <td>${customer.supplierBusDesc}</td>
-		                                            <td>${customer.supplierPhone}</td>
-		                                            <td>${customer.supplierAfm}</td>
-		                                            <td>${customer.supplierDoy}</td>
-		                                            <td>${customer.supplierAddress}</td>
+		                                            <td>${supplier.supplierBusDesc}</td>
+		                                            <td>${supplier.supplierPhone}</td>
+		                                            <td>${supplier.supplierAfm}</td>
+		                                            <td>${supplier.supplierDoy}</td>
+		                                            <td>${supplier.supplierAddress}</td>
 		                                        </tr>
 		                                    </c:forEach>    
 	                                    </tbody>

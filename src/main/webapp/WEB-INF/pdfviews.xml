@@ -11,4 +11,7 @@
 		<property name="url" value="/WEB-INF/reports/outcomesPdf.jrxml"/>
 	</bean>
 
+    <bean id="pdfPaymentsView" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView">
+		<property name="url" value="/WEB-INF/reports/paymentsPdf.jrxml"/>
+	</bean>
 </beans>
