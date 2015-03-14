@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Φιλοξενητής: localhost
--- Χρόνος δημιουργίας: 06 Μαρ 2015 στις 02:01:23
+-- Χρόνος δημιουργίας: 14 Μαρ 2015 στις 13:39:15
 -- Έκδοση διακομιστή: 5.5.41-0ubuntu0.14.04.1
 -- Έκδοση PHP: 5.5.9-1ubuntu4.6
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `companyInfo` (
   `workPhone` char(11) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`companyId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='My info' AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='My info' AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `invoiceDetails` (
   PRIMARY KEY (`id`),
   KEY `invoiceId` (`invoiceId`,`lineId`),
   KEY `invoiceId_2` (`invoiceId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoice Detail Records' AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoice Detail Records' AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -100,11 +100,12 @@ CREATE TABLE IF NOT EXISTS `invoiceHeader` (
   `invoiceDate` date NOT NULL,
   `withHoldingString` char(200) COLLATE utf8_unicode_ci NOT NULL,
   `words` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `invoiceFile` mediumblob,
   PRIMARY KEY (`invoiceId`),
   KEY `companyId` (`companyId`,`customerId`),
   KEY `invoiceId` (`invoiceId`),
   KEY `customerId` (`customerId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoices Header Records' AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoices Header Records' AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -125,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `outcomeDetails` (
   KEY `invoiceId_2` (`outcomeId`),
   KEY `outcomeId` (`outcomeId`),
   KEY `lineId` (`lineId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoice Detail Records' AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoice Detail Records' AUTO_INCREMENT=73 ;
 
 -- --------------------------------------------------------
 
@@ -150,7 +151,26 @@ CREATE TABLE IF NOT EXISTS `outcomeHeader` (
   KEY `companyId` (`companyId`,`supplierId`),
   KEY `invoiceId` (`outcomeId`),
   KEY `customerId` (`supplierId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoices Header Records' AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Invoices Header Records' AUTO_INCREMENT=50 ;
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `payments`
+--
+
+DROP TABLE IF EXISTS `payments`;
+CREATE TABLE IF NOT EXISTS `payments` (
+  `paymentId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `companyId` int(11) NOT NULL,
+  `supplierId` int(11) NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `paymentDate` date NOT NULL,
+  `paymentFile` mediumblob,
+  `paymentFileName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `paymentFileType` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`paymentId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -182,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `suppliers` (
   `supplierAfm` char(9) COLLATE utf8_unicode_ci NOT NULL,
   `supplierPhone` char(10) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`supplierId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Customers' AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Customers' AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
