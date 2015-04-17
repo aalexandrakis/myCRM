@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<commons:header title="Login - myCRM"/>
+<commons:header title="Login - myCRM-PROD"/>
 
 <body>
 	<div id="wrapper">
