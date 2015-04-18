@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<commons:header title="Login - myCRM-PROD-gitlab"/>
+<commons:header title="Login - myCRM"/>
 
 <body>
 	<div id="wrapper">
