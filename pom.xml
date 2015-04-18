@@ -5,6 +5,7 @@
   <version>1.0.0</version>
   <packaging>war</packaging>
   	<build>
+  		<finalName>myCRM</finalName>
 	    <plugins>
 	      <plugin>
 	        <groupId>org.apache.maven.plugins</groupId>
