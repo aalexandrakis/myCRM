@@ -68,7 +68,7 @@ public class OutcomesController{
 			ServletOutputStream outputStream = response.getOutputStream();
 			
 			try {
-				List<Outcome> outcomes  = OutcomeDaoImpl.getOutcomes(getQueryParams());
+				List<Outcome> outcomes  = OutcomeDaoImpl.getOutcomes(getQueryParams(outcome));
 				ZipOutputStream zip = new ZipOutputStream(outputStream);
 				for (Outcome outcomeObject : outcomes){
 					zip.putNextEntry(new ZipEntry(outcomeObject.getFileName()));
@@ -109,7 +109,7 @@ public class OutcomesController{
 		model.addObject("outcomeActive", "active");
 		List<Outcome> outcomes = null;
 		if (!checkErrors(model, result)){
-			outcomes = OutcomeDaoImpl.getOutcomes(getQueryParams());
+			outcomes = OutcomeDaoImpl.getOutcomes(getQueryParams(outcome));
 			BigDecimal amountSummary = BigDecimal.ZERO;
 			BigDecimal fpaAmountSummary = BigDecimal.ZERO;
 			BigDecimal grossSummary = BigDecimal.ZERO;
@@ -173,7 +173,7 @@ public class OutcomesController{
 		return hasErrors;
 	}
 	
-	private HashMap<String, Object> getQueryParams(){
+	private HashMap<String, Object> getQueryParams(Outcome outcome){
 		SimpleDateFormat old_df = new SimpleDateFormat("dd/MM/yyyy");
 		SimpleDateFormat new_df = new SimpleDateFormat("yyyy-MM-dd");
 

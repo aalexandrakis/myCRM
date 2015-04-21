@@ -147,13 +147,13 @@
 
   <commons:footer/>
     <script>
-	$('#invoiceDateFrom').datepicker({
+	$('#outcomeDateFrom').datepicker({
 		format: "dd/mm/yyyy",
 		autoclose: true 
 	});
     </script>
     <script>
-	 $('#invoiceDateTo').datepicker({
+	 $('#outcomeDateTo').datepicker({
 		format: "dd/mm/yyyy",
 		autoclose: true 
 	 });
